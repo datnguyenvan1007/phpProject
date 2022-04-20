@@ -1,0 +1,133 @@
+
+.main-top {
+    padding: 20px 0;
+    /* border-bottom: 1px solid #e6e5e5; */
+}
+
+.table {
+    border-bottom: 1px solid #e6e5e5;
+}
+
+.table tr td {
+    padding: 30px 20px;
+    vertical-align: middle;
+}
+
+.table .image {
+    width: 15%;
+}
+
+.table .product-info {
+    width: 40%;
+}
+
+.table .product-info .product-name a {
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    
+}
+
+.table .product-info .product-name a:hover {
+    color: #e5b128;
+}
+
+.table .product-info .breadcrumb {
+    background-color: white;
+    padding-left: 0;
+    font-size: 14px;
+    margin: 0;
+    padding-bottom: 4px;
+}
+
+.table .product-info .delete-cart-item {
+    font-size: 13px;
+}
+
+.table .product-info .delete-cart-item:hover {
+    color: #e5b128;
+    cursor: pointer;
+}
+
+.table .price,
+.table .subtotal-price {
+    width: 15%;
+    
+}
+
+.table tbody .price,
+.table tbody .subtotal-price {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.table tbody .price::after,
+.table tbody .subtotal-price::after {
+    content: 'đ';
+}
+
+.table .quantity {
+    width: 15%;
+}
+
+.table .quantity input,
+.table .quantity button {
+    width: 30px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #e6e5e5;
+}
+
+.table thead tr .product-info,
+.table tr .price,
+.table tr .quantity {
+    text-align: center;
+}
+
+.table tr .subtotal-price {
+    text-align: right;
+}
+
+.main-bottom {
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+}
+
+.main-bottom .left {
+    width: 60%;
+}
+
+.main-bottom .right {
+    width: 40%;
+    padding-left: 30px;
+    text-align: right;
+}
+
+.total-price {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.total-price::before {
+    content: 'Tổng tiền';
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.total-price::after {
+    content: 'đ';
+}
+
+.main-bottom .button button {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.main-bottom .form-control:focus {
+    border-color: black !important;
+    box-shadow: 0 0 0 0.1rem black !important;
+}

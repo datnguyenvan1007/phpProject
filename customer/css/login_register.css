@@ -1,0 +1,50 @@
+main {
+    margin: 20px 0;
+}
+
+main .title {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+main .note {
+    margin-bottom: 20px;
+}
+
+main form input {
+    width: 400px;
+    height: 43px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(218, 217, 217);
+    padding-left: 10px;
+}
+
+/* main form input::placeholder {
+    padding-left: 10px;
+} */
+
+main form button {
+    height: 37px;
+    background-color: white;
+    border: 1px solid rgb(74, 74, 74);
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+main form button:hover {
+    color: white;
+    background-color: black;
+}
+
+main a {
+    margin-top: 15px;
+    color: black;
+
+}
+
+main a:hover {
+    color: #ffb243;
+    text-decoration: none;
+}

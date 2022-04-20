@@ -1,0 +1,247 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    z-index: 0;
+}
+
+header, footer {
+    color: white;
+    background-color: black;
+}
+
+.logo-search-icon {
+    padding: 30px 0;
+}
+
+.logo-search-icon .search {
+    color: white;
+    size: 100px;
+    width: 140px;
+}
+
+.logo-search-icon .search form input {
+    background-color: black;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+.logo-search-icon .search form input::placeholder {
+    color: white;
+    font-size: 14px;
+}
+
+.logo-search-icon .search form input:focus {
+    outline: none;
+}
+
+.logo-search-icon .logo {
+    font-size: 50px;
+}
+
+.logo-search-icon .icon {
+    font-size: 20px;
+    color: white;
+    width: 140px;
+    padding-left: 70px;
+}
+
+.logo-search-icon .icon div {
+    cursor: pointer;
+}
+
+.logo-search-icon .icon .icon-cart {
+    color: white;
+    cursor: pointer;
+}
+
+.logo-search-icon .icon .icon-user:hover ul {
+    display: block;
+}
+
+.logo-search-icon .icon .icon-user ul {
+    display: none;
+    background-color: white;
+    width: 200px;
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.logo-search-icon .icon .icon-user ul::before {
+    content: '';
+    width: 27px;
+    height: 10px;
+    top: -6px;
+    left: -4px;
+    position: absolute;
+}
+
+.logo-search-icon .icon .icon-user ul li {
+    margin: 7px 0;
+}
+
+.logo-search-icon .icon .icon-user ul li:hover a {
+    color: #ffb243;
+    
+}
+
+.logo-search-icon .icon .icon-user ul li a {
+    color: black;
+    font-size: 16px;
+    
+}
+
+
+
+.logo-search-icon .icon .icon-user ul li a:hover {
+    text-decoration: none;
+}
+
+.logo-search-icon .icon .cart-index {
+    background-color: #ffb243;
+    border-radius: 50%;
+    padding: 0 7px;
+    font-size: 14px;
+    top: -7px;
+    right: -15px;
+}
+
+.category {
+    padding-bottom: 7px;
+}
+
+.category ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.category ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* cart */
+
+
+
+.modal-cart-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 9999;
+    color: black;
+    visibility: hidden;
+}
+
+.modal-cart-container .cart-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+}
+
+.modal-cart-container .cart {
+    position: absolute;
+    right: 0;
+    width: 370px;
+    height: 100%;
+    background-color: #f6f6f6;
+    padding: 15px;
+    margin-right: -500px;
+    transition: 0.8s;
+}
+
+.modal-cart-container .cart .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(219, 217, 217);
+}
+
+.modal-cart-container .cart .cart-header .close {
+    padding: 5px;
+}
+
+.modal-cart-container .cart .cart-header .close:hover {
+    cursor: pointer;
+}
+
+/* #toggle-modal:checked ~ .modal-cart-container {
+    display: none;
+} */
+
+.cart-header button {
+    outline: none;
+    border: none;
+    background-color: #f6f6f6;
+    padding: 4px 7px;
+}
+
+.modal-cart-container .cart .cart-product {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid rgb(219, 217, 217);
+}
+
+.modal-cart-container .cart .cart-product .image {
+    width: 25%;
+    margin-right: 10px;
+}
+
+.modal-cart-container .cart .cart-product .info {
+    width: calc(75% - 10px);
+}
+
+.modal-cart-container .cart .cart-product .info .product-quantity-price {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.product-quantity-price .quantity input,
+.product-quantity-price .quantity button {
+    width: 30px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #e6e5e5;
+}
+
+.modal-cart-container .cart .cart-footer {
+    margin-top: 15px;
+}
+
+.modal-cart-container .cart .cart-footer .cart-footer-note {
+    margin: 10px 7px;
+    text-align: center;
+}
+
+.modal-cart-container .cart .cart-footer button {
+    width: 100%;
+    padding: 5px 0;
+    background-color: white;
+    border: 1px solid black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.modal-cart-container .cart .cart-footer button:hover {
+    background-color: black;
+    color: white;
+}
+
+footer .footer-container {
+    display: flex;
+    padding-top: 20px;
+}
+
+.footer-container ul {
+    list-style-type: none;
+}
