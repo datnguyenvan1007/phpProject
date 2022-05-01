@@ -33,12 +33,12 @@
                         </thead>
                         <tbody>
                             <?php
-                                $con = mysqli_connect('localhost', 'root', 'milkyway', 'projectphp');
+                                $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
                                 $sql = "select * from category";
                                 $result = mysqli_query($con, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr?>";
+                                        echo "<tr>";
                                         echo "<td>".$row['id']."</td>";
                                         echo "<td>".$row['name']."</td>";
                                         echo '<td>'

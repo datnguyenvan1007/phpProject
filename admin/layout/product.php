@@ -31,39 +31,40 @@
                                 <th scope="col">Giá Tiền</th>
                                 <th scope="col">Số Lượng Có</th>
                                 <th scope="col">Hình Ảnh</th>
+                                <th scope="col">Màu Sắc</th>
+                                <th scope="col">Size</th>
                                 <th scope="col">Trạng Thái</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>dnguyenvan</td>
-                                <td>1000đ</td>
-                                <td>100</td>
-                                <td>
-                                    <img src="../../user/image/hot_product/sp10Hot.png" alt="" width="100px">
-                                </td>
-                                <td>Mới</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary mr-2"><i class="far fa-edit"></i></button>
-                                    <a href="#" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>dnguyenvan</td>
-                                <td>1000đ</td>
-                                <td>100</td>
-                                <td>
-                                    <img src="../../user/image/hot_product/sp10Hot.png" alt="" width="100px">
-                                </td>
-                                <td>Mới</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary mr-2"><i class="far fa-edit"></i></button>
-                                    <a href="#" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
+                            <?php 
+                                $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                                $sql = "select * from product p, size_color sc, size s, color c where p.id = sc.product_id and sc.size_id = s.id and sc.color_id = c.id";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr>"
+                                            ."<td>".$row['id']."</td>"
+                                            ."<td>".$row['name']."</td>"
+                                            ."<td>".$row['price']."</td>"
+                                            ."<td>".$row['quantity']."</td>"
+                                            ."<td>"
+                                                ."<img src='".$row['image']."' alt='' width='100px'>"
+                                            ."</td>"
+                                            ."<td>".$row['color']."</td>"
+                                            ."<td>".$row['size']."</td>"
+                                            ."<td>".$row['status']."</td>"
+                                            ."<td>"
+                                                ."<button type='button' class='btn btn-primary mr-2'><i class='far fa-edit'></i></button>"
+                                                ."<a href='#' type='button' class='btn btn-danger'><i class='fas fa-trash-alt'></i></a>"
+                                            ."</td>"
+                                        ."</tr>";
+                                    }
+                                }
+                                mysqli_close($con);
+                            ?>
+                            
                         </tbody>
                     </table>
                 </div>

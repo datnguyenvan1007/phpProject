@@ -33,7 +33,7 @@
                             <label for="category">Nhập danh mục: </label>
                             <input type="text" name="category" id="category" class="form-control col-4" placeholder="Tên danh mục"
                             <?php
-                                $con = mysqli_connect('localhost', 'root', 'milkyway', 'projectphp');
+                                $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
                                 $id = $_GET['id'];
                                 if (isset($id)) {
                                     $sql = "select * from category where id = $id";

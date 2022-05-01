@@ -26,16 +26,45 @@
                     <h2>Thêm Mới Size</h2>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+                        <?php
+                            if (isset($_GET['id'])) {
+                                echo "<input type='text' name='id' hidden value='".$_GET['id']."'>";
+                            }
+                        ?>
                         <div class="row">
                             <div class="col-3 form-group">
                                 <label for="size">Size:</label>
-                                <input type="text" name="size" id="size" class="form-control">
+                                <input type="text" name="size" id="size" class="form-control"
+                                    <?php 
+                                        if (isset($_GET['id'])) {
+                                            $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                                            $id = $_GET['id'];
+                                            $result = mysqli_query($con, "select * from size where id = $id");
+                                            $row = mysqli_fetch_assoc($result);
+                                            echo "value = '". $row['size']. "'";
+                                            mysqli_close($con);
+                                        }
+                                    ?>
+                                >
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success">Thêm mới</button>
-                        <button class="btn btn-primary save">Lưu</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </form>
+                    <?php
+                        $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                        if (isset($_POST['size'])) {
+                            $size = strtoupper($_POST['size']);
+                            if (isset($_POST['id'])) {
+                                $id = $_POST['id'];
+                                mysqli_query($con, "UPDATE size SET size='$size' WHERE id=$id");
+                            }
+                            else {
+                                mysqli_query($con, "INSERT INTO size(size) VALUES ('$size')");
+                            }
+                        }
+                        mysqli_close($con);
+                    ?>
                 </div>
             </div>
         </div>
