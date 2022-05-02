@@ -49,8 +49,8 @@
                                             ."</tr>";
                                     }
                                 }
-                                $deleteId = $_POST['deleteId'];
-                                if (isset($deleteId)) {
+                                if (isset($_POST['deleteId'])) {
+                                    $deleteId = $_POST['deleteId'];
                                     mysqli_query($con, "DELETE FROM color WHERE id= $deleteId");
                                 }
                                 mysqli_close($con);

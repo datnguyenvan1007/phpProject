@@ -56,11 +56,15 @@
                                             ."<td>".$row['size']."</td>"
                                             ."<td>".$row['status']."</td>"
                                             ."<td>"
-                                                ."<button type='button' class='btn btn-primary mr-2'><i class='far fa-edit'></i></button>"
-                                                ."<a href='#' type='button' class='btn btn-danger'><i class='fas fa-trash-alt'></i></a>"
+                                                ."<a href='./addProduct.php?id=".$row['id']."' type='button' class='btn btn-primary mr-2'><i class='far fa-edit'></i></a>"
+                                                ."<button type='button' class='btn btn-danger delete'><i class='fas fa-trash-alt'></i></button>"
                                             ."</td>"
                                         ."</tr>";
                                     }
+                                }
+                                if (isset($_POST['deleteId'])) {
+                                    $deleteId = $_POST['deleteId'];
+                                    mysqli_query($con, "DELETE FROM color WHERE id= $deleteId");
                                 }
                                 mysqli_close($con);
                             ?>
@@ -75,5 +79,24 @@
 <script src="../js/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="../js/header_sidebar.js"></script>
+<script>
+    $(document).on('click', '.delete', function () {
+        var con =  confirm('Bạn có muốn xóa size này không!');
+        var tr = $(this);
+        var id = $(this).closest('tr').find('td:first-child').html();
+        id = parseInt(id);
+        if (con) {
+            $.ajax({ 
+                data: {
+                    deleteId: id
+                },
+                url: "<?php echo $_SERVER['PHP_SELF'] ?>",
+                type: 'post',
+                success: function(){
+                    $(tr).closest('tr').remove();
+                }
+            });
+        }
+    })
+</script>
 </html>

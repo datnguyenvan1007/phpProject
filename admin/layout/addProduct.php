@@ -269,8 +269,8 @@
                                     $row = mysqli_fetch_assoc($resultProductId);
                                     $productId = $row['id'];
                                     echo "<div>$productId</div>";
-                                    echo "<div>$size_id</div>";
-                                    echo "<div>$color_id</div>";
+                                    echo "<div>$size</div>";
+                                    echo "<div>$color</div>";
                                     echo "<div>$quantity</div>";
                                     mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $color, $quantity)");
                                 }
