@@ -18,101 +18,53 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
-    <header>
-        <input type="checkbox" id="toggle-modal" hidden checked>
-        <div class="modal-cart-container">
-            <label for="toggle-modal">
-                <div class="cart-overlay"></div>
-            </label>
-            <div class="cart">
-                <div class="cart-header">
-                    <h4>Giỏ hàng</h4>
-                    <label for="toggle-modal">
-                        <i class="fas fa-times close"></i>
-                    </label>
-                </div>
-                <div class="cart-product">
-                    <div class="image">
-                        <img src="../images/u_appiano_g_c9999_0_ffb384e676414958b9353f01f5b1e67b_3e43b632c6e84e2fbe9c31ceeb93f8ea_large.webp" alt="" width="100%">
-                    </div>
-                    <div class="info">
-                        <div class="product-name">
-                            Giày thể thao Sneakers
-                        </div>
-                        <div class="product-quantity-price">
-                            <div class="quantity btn-group">
-                                <button>-</button>
-                                <input type="text" class="quantity-input" value="1" readonly>
-                                <button>-</button>
-                            </div>
-                            <div class="price">
-                                1,190,000đ
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="logo-search-icon d-flex justify-content-between align-items-center">
-                <div class="search d-flex align-items-center">
-                    <form action="">
-                        <input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa tìm kiếm...">
-                    </form>
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="logo">
-                    À Shoes
-                </div>
-                <div class="icon d-flex justify-content-between">
-                    <div class="icon-user">
-                        <i class="fal fa-user"></i>
-                    </div>
-                    <label for="toggle-modal">
-                        <div class="icon-cart position-relative">
-                            <i class="far fa-shopping-cart"></i>
-                            <div class="cart-index position-absolute">0</div>
-                        </div>
-                    </label>
-                </div>
-            </div>
-            <div class="category">
-                <ul class="d-flex justify-content-around">
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                    <li>
-                        <a href="#">GIÀY</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <?php 
+        include 'header.php';
+    ?>
     <main>
+        <?php
+            if(isset($_POST['dangky'])){
+                //getdata
+                $name=$_POST['fullname'];
+                $email=$_POST['email'];
+                $pn=$_POST['phonenumber'];
+                $pass=$_POST['password'];
+                $address=$_POST['address'];
+                $role="khachHang";
+                $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
+                $check="SELECT `email` FROM `user` WHERE email=".$email;
+                $checked_value=$con->query($check);
+
+                if(!empty($name) && !empty($email) && !empty($pn) && !empty($pass) && !empty($address)){
+                    if(strcmp($email,$checked_value)==0){
+                        $sql = "INSERT INTO `user`(`id`, `fullname`, `password`, `phone`, `address`, `email`, `role`) VALUES 
+                        ('','$name','$pass','$pn','$address','$email','$role')";
+                        mysqli_query($con,$sql);
+                        echo "<script>document.location.href = './login.php';</script>";
+                    }
+                    else{
+                        echo '<script>alert("Đã tồn tại tài khoản!!!")</script>';
+                    }
+                }
+                else{
+                    echo '<script>alert("Chưa điền thông tin!!!")</script>';
+                }
+            }
+            $con->close();
+        ?>
+        
         <div class="container d-flex flex-column align-items-center">
+            
             <div class="title">TẠO TÀI KHOẢN</div>
             <form action="" method="post" class="d-flex flex-column">
                 <input type="text" name="fullname" id="fullname" placeholder="Họ và tên">
                 <input type="email" name="email" id="email" placeholder="Email">
+                <input type="number" name="phonenumber" id="phonenumber" placeholder="Số điện thoại">
                 <input type="password" name="password" id="password" placeholder="Mật khẩu">
-                <button type="submit" class="">Đăng ký</button>
+                <input type="text" name="address" id="address" placeholder="Địa chỉ">
+                <button type="submit" name="dangky" class="">Đăng ký</button>
             </form>
-            <a href="#">Đăng nhập</a>
+            <a href="./login.php">Đăng nhập</a>
             <a href="#">Trở về</a>
         </div>
     </main>
@@ -195,16 +147,7 @@
 </body>
 <script>
     $(document).on('input', '#toggle-modal', function () {
-        if ($('#toggle-modal:checked').length == 0) {
-            $('body').css('overflow', 'hidden');
-            $('.modal-cart-container').css('visibility', 'visible');
-            $('.modal-cart-container .cart').css('margin-right', '0');
-        }
-        else {
-            $('body').css('overflow', 'auto');
-            $('.modal-cart-container').css('visibility', 'hidden');
-            $('.modal-cart-container .cart').css('margin-right', '-500px');
-        }
+        document.location.href="./cart.php";
     })
 </script>
 </html>

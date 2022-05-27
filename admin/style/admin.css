@@ -114,7 +114,7 @@ main .sidebar {
 }
 
 .sidebar .sidebar-footer .user-logged {
-    font-size: 18px;
+    box-sizing: border-box;
 }
 
 main .main {
@@ -123,6 +123,10 @@ main .main {
     padding: 0 1% 0 16%;
 }
 
-.main .card .card-header {
-    font-size: 20px;
+.main .card {
+    height: auto;
+}
+
+canvas {
+    min-height: 400px;
 }

@@ -1,5 +1,5 @@
 * {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* .contain_main{
@@ -7,149 +7,154 @@
     margin: 0 auto;
     
 } */
-.left_main{
-    width: 55%;
-    border-right: 1px solid rgb(236, 236, 236);
-    padding: 2em;
-    padding-top: 100px;
-    padding-left: 100px;
+.left_main {
+  width: 55%;
+  border-right: 1px solid rgb(236, 236, 236);
+  padding: 2em;
+  padding-top: 100px;
+  padding-left: 100px;
 }
-.right_main{
-    width: 45%;
-    background-color: #fafafa;
-    padding: 2em;
-    padding-top: 100px;
-    height: 100vh;
-    padding-right: 100px;
+.right_main {
+  width: 45%;
+  background-color: #fafafa;
+  padding: 2em;
+  padding-top: 100px;
+  height: 100vh;
+  padding-right: 100px;
 }
-.left_main_form{
-    margin-top: 10px;
+.left_main_form {
+  margin-top: 10px;
 }
-.left_main_form input, select{
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
+#name, #email, #phoneNumber, #address {
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
 }
-.left_main_form table td{
-    width: 30%;
+.left_main_form table td {
+  width: 30%;
 }
-.payment_method{
-    margin: 10px 0;
+.payment_method {
+  margin: 10px 0;
 }
-.payment_method a:nth-child(2), a:nth-child(3) {
-    color: black;
+.payment_method a:nth-child(2),
+a:nth-child(3) {
+  color: black;
 }
-.payment_method a:hover{
-    text-decoration: none;
-}
-
-#payment{
-    background-color: rgb(84, 84, 230);
-    color: white;
-    width: 15em;
-    float: right;
+.payment_method a:hover {
+  text-decoration: none;
 }
 
-.product_thumbnail{
-    width: 5em;
-    margin: 0px;
+#payment {
+  background-color: rgb(84, 84, 230);
+  color: white;
+  width: 15em;
+  float: right;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: large ;
 }
-.product_thumbnail_wrapper{
-    border-radius: 10px;
-}
-.payment_product_list{
-    width: 90%;
-    
-}
-td:nth-child(1){
-    width: 16%;
-}
-td:nth-child(2){
-    width: 68%;
-}
-td:nth-child(3){
-    width: 16%;
-}
-tr:last-child{
-    border-bottom: 1px solid rgb(218, 218, 218);
-}
-.payment_product_list a{
-    color: black;
-}
-.payment_product_list a:hover{
-    text-decoration: none;
-    color: black;
-}
-.under{
-    width: 90%;
-    margin-top: 15px;
+#payment:hover{
+    background-color: rgb(249, 235, 38);
+    color: rgb(227, 19, 19);
 }
 
-.under_product_list>button{
-    width: 7em;
-    margin-left: 5px;
-    height: 2.5em;
-    border-radius: 5px ;
-    border: 0px;
-    background-color: rgb(178, 178, 178);
-    color: white;
-    float: right;
+.product_thumbnail {
+  width: 5em;
+  margin: 0px;
 }
-#voucher{
-    width: 80%;
-    border-radius: 5px;
-    border: 2px solid grey;
+.product_thumbnail_wrapper {
+  border-radius: 10px;
 }
-.provisional{
-    width: 100%;
-    
+.payment_product_list {
+  width: 90%;
 }
-.provisional input{
-    float: right;
-    width: 5em;
-    background-color: rgb(242, 242, 242);
-    border: 0px;
-    text-align: right;
+td:nth-child(1) {
+  width: 16%;
 }
-.under table{
-    width: 100%;
+td:nth-child(2) {
+  width: 68%;
 }
-.total_line_name{
-    width: 30%;
+td:nth-child(3) {
+  width: 16%;
 }
-.total_line_price{
-    width: 70%;
-    
+tr:last-child {
+  border-bottom: 1px solid rgb(218, 218, 218);
 }
-.total_line_price{
-    text-align: right;
+.payment_product_list a {
+  color: black;
 }
-.under tbody{
-    height: 5em;
+.payment_product_list a:hover {
+  text-decoration: none;
+  color: black;
 }
-.under tfoot{
-    height: 4em;
+.under {
+  width: 90%;
+  margin-top: 15px;
 }
-.money::after{
-    content: 'đ';
+
+.under_product_list > button {
+  width: 7em;
+  margin-left: 5px;
+  height: 2.5em;
+  border-radius: 5px;
+  border: 0px;
+  background-color: rgb(178, 178, 178);
+  color: white;
+  float: right;
 }
-.total_money{
-    font-size: 20px;
-    font-weight: 400;
+#voucher {
+  width: 80%;
+  border-radius: 5px;
+  border: 2px solid grey;
 }
-.total_payment::before{
-    content: 'VND  ';
+.provisional {
+  width: 100%;
 }
-.total_payment::after{
-    content: 'đ';
+.provisional input {
+  float: right;
+  width: 5em;
+  background-color: rgb(242, 242, 242);
+  border: 0px;
+  text-align: right;
 }
-.total_payment{
-    font-size: 25px;
-    font-weight: 500;
+.under table {
+  width: 100%;
 }
-.note{
-    text-align: justify;
-    color: rgb(224, 52, 52);
-    margin-top: 10px;
-    margin-bottom: 50px;
-}  
+.total_line_name {
+  width: 30%;
+}
+.total_line_price {
+  width: 70%;
+}
+.total_line_price {
+  text-align: right;
+}
+.under tbody {
+  height: 5em;
+}
+.under tfoot {
+  height: 4em;
+}
+.money::after {
+  content: "đ";
+}
+.total_money {
+  font-size: 20px;
+  font-weight: 400;
+}
+.total_payment::before {
+  content: "VND  ";
+}
+.total_payment::after {
+  content: "đ";
+}
+.total_payment {
+  font-size: 25px;
+  font-weight: 500;
+}
+.note {
+  text-align: justify;
+  color: rgb(224, 52, 52);
+  margin-top: 10px;
+  margin-bottom: 50px;
+}

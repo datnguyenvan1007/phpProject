@@ -101,6 +101,7 @@ header, footer {
     width: 80%;
 }
 .contain_big_image img{
+    margin-left: 50px;
     border-radius: 5px;
 }
 .contain_detail_product{
@@ -140,7 +141,7 @@ header, footer {
 .add_cart{
     width: 40%;
 }
-.add_cart form button{
+.add_cart button{
     width: 100%;
     padding: 10px 0;
     border: 1px solid red;

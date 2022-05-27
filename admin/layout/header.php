@@ -9,7 +9,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Cài đặt</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Đăng xuất</a>
+            <a class="dropdown-item" href="../../customer/layout/login.php">Đăng xuất</a>
         </div>
     </div>
 </header>
