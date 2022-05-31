@@ -22,7 +22,94 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body> 
+    <!-- <header>
+        <input type="checkbox" id="toggle-modal" hidden checked>
+        <div class="modal-cart-container">
+            <label for="toggle-modal">
+                <div class="cart-overlay"></div>
+            </label>
+            <div class="cart">
+                <div class="cart-header">
+                    <h4>Giỏ hàng</h4>
+                    <label for="toggle-modal">
+                        <i class="fas fa-times close"></i>
+                    </label>
+                </div>
+                <div class="cart-product">
+                    <div class="image">
+                        <img src="../images/u_appiano_g_c9999_0_ffb384e676414958b9353f01f5b1e67b_3e43b632c6e84e2fbe9c31ceeb93f8ea_large.webp" alt="" width="100%">
+                    </div>
+                    <div class="info">
+                        <div class="product-name">
+                            Giày thể thao Sneakers
+                        </div>
+                        <div class="product-quantity-price">
+                            <div class="quantity btn-group">
+                                <button type="button" value="-">-</button>
+                                <input type="text" class="quantity-input" value="1" readonly>
+                                <button type="button" value="+">+</button>
+                            </div>
+                            <div class="price">
+                                1,190,000đ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-footer">
+                    <label for="note">
+                        Ghi chú hoặc Điền thông tin Xuất Hóa Đơn (Nếu có)
+                    </label>
+                    <textarea name="note" id="note" cols="40" rows="5"></textarea>
+                    <div class="d-flex justify-content-between">
+                        <div>Tổng tiền</div>
+                        <div class="total-price">350,000</div>
+                    </div>
+                    <div class="cart-footer-note">
+                        Phí vận chuyển được tính tại bước thanh toán
+                    </div>
+                    <button type="button">Thanh toán <i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="logo-search-icon d-flex justify-content-between align-items-center">
+                <div class="search d-flex align-items-center">
+                    <form action="">
+                        <input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa tìm kiếm...">
+                    </form>
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="logo">
+                    À Shoes
+                </div>
+                <div class="icon d-flex justify-content-between">
+                    <div class="icon-user position-relative">
+                        <i class="fal fa-user"></i>
+                        <ul class="position-absolute">
+                            <li>
+                                <a href="./login.html">Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a href="./register.html">Đăng ký</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <label for="toggle-modal">
+                        <div class="icon-cart position-relative">
+                            <i class="far fa-shopping-cart"></i>
+                            <div class="cart-index position-absolute">0</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+        </div>
+    </header> -->
+    
     <?php
+        if(isset($_GET['status'])){
+            echo '<script>alert("Đặt hàng thành công")</script>';
+        }
         include 'header.php'
     ?>
     <main class="container">
@@ -31,45 +118,57 @@
         </div>
         <div class="main">
             <div class="category">
-                
-                <div class="category-item">
-                    
-                    <div class="category-title">
-                        KHOẢNG GIÁ
-                    </div>
-                    
-                    <form action="" method="POST">
+                <form action="" method="POST">
+                    <div class="category-item">
+                        <div class="category-title">
+                            KHOẢNG GIÁ
+                        </div>
                         <input type="range" name="category-title-price" id="category-title-price" onchange="getvalue()" min="100000" max="1000000" step="10000">
                         <input type="text" name="value" id="value" style="border: 2px solid grey; border-radius: 10px; width: 100px; padding-left: 10px;">
-                        <button type="submit" id="finding-product" >Tìm</button>
-                    </form>
-                </div>
-                <div class="category-item">
-                    <div class="category-title">
-                        KÍCH CỠ
                     </div>
-                    <div class="category-option">
-                        <input type="checkbox" name="size" id="size1">
-                        <label for="size1">Tất cả</label>
+                    <div class="category-item">
+                        <div class="category-title">
+                            KÍCH CỠ
+                        </div>
+                        <?php
+                            $con=mysqli_connect('localhost','root','12345678','projectphp');
+                            $sql="select * from size";
+                            $result=mysqli_query($con,$sql);
+                            if(mysqli_num_rows($result)>0){
+                                while($row=mysqli_fetch_assoc($result)){
+                                    echo '<div class="category-option">';
+                                    echo  '<input type="checkbox" name="size" id="'.$row['id'].'" value="'.$row['id'].'">';
+                                    echo   '<label style="margin-left:10px;" for="'.$row['id'].'">'.$row['size'].'</label>';
+                                    echo '</div>';
+                                }
+                            }
+                            
+                            ?>   
                     </div>
-                    <div class="category-option">
-                        <input type="checkbox" name="size" id="size2" value="41">
-                        <label for="size2">41</label>
+                    <div class="category-item color">
+                        <div class="category-title">
+                            MÀU SẮC
+                        </div>
+                        <?php
+                                $con=mysqli_connect('localhost','root','12345678','projectphp');
+                                $sql="select * from color";
+                                $result=mysqli_query($con,$sql);
+                                if(mysqli_num_rows($result)>0){
+                                    while($row=mysqli_fetch_assoc($result)){
+                                        echo '<div class="category-option">';
+                                        echo '<input type="checkbox" name="color" id="'.$row['id'].'" value="'.$row['id'].'">
+                                        <label for="'.$row['id'].'">'.$row['color'].'</label>';
+                                        echo '</div>';
+                                        
+                                    }
+                                }
+                                $con->close();
+                                ?>
                     </div>
-                </div>
-                <div class="category-item color">
-                    <div class="category-title">
-                        MÀU SẮC
-                    </div>
-                    <div class="category-option">
-                        <input type="checkbox" name="color" id="color1">
-                        <label for="color1">Bạc</label>
-                    </div>
-                    <div class="category-option">
-                        <input type="checkbox" name="color" id="color2">
-                        <label for="color2">Đen</label>
-                    </div>
-                </div>
+                    <button type="submit" id="finding-product" >Tìm</button>
+                    
+                </form>
+                    
             </div>
             <div class="right">
                 <div class="product-title">
@@ -102,7 +201,20 @@
                             $sql="SELECT * FROM `product` WHERE name LIKE N'%".$_GET["searchProduct"]."%'";
                         }
                         if(isset($_POST['value'])){
-                            $sql="SELECT * FROM `product` WHERE price<=".$_POST['value'];
+                            $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id WHERE price<=".$_POST['value'];
+                            if(isset($_POST['size'])){
+                                if($_POST['size']!=0){
+                                     $sql.=" and size_id=".$_POST['size'];
+                                }
+                                
+                                if(isset($_POST['color'])){
+                                    if($_POST['color']!=0){
+
+                                        $sql.=" and color_id=".$_POST['color'];
+                                    }
+                                }
+                                    
+                            }
                         }
                         $result=mysqli_query($con, $sql);
                         if(mysqli_num_rows($result)>0){
@@ -114,8 +226,10 @@
                                 echo '</div>';
                             }
                         }
+                        
                         mysqli_close($con);
                         ?>
+                        
                 </div> 
             </div>
         </div>

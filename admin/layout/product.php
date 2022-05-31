@@ -82,6 +82,7 @@
                                 $result = mysqli_query($con, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        $price = number_format($row['price'], 0, '.', ',') . "đ";
                                         $status = $row['status'];
                                         if ($status == 1)
                                             $s = "Mới";
@@ -96,7 +97,7 @@
                                         echo "<tr>"
                                             ."<td>".$row['id']."</td>"
                                             ."<td>".$row['name']."</td>"
-                                            ."<td>".$row['price']."</td>"
+                                            ."<td>".$price."</td>"
                                             ."<td>".$row['quantity']."</td>"
                                             ."<td>"
                                                 ."<img src='".$row['image']."' alt='' width='100px'>"

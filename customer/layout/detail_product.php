@@ -112,9 +112,9 @@
                         <button type="button" class="btn_redirect">THÊM VÀO GIỎ HÀNG</button>
                     </div>
                    <div class="buy">
-                    <form action="">
+                    <!-- <form action="">
                         <button>MUA NGAY</button>
-                    </form>
+                    </form> -->
                    </div>
                 </div>
                 <div class="suggest_product">

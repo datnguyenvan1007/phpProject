@@ -38,7 +38,6 @@
         else{
             $_SESSION['cart'][$id+$id+$size+$color]=$product;
         }
-
         //xoa
         if(isset($_GET['action'])=="delete"){
             $key=$_GET['key'];

@@ -21,7 +21,14 @@
         <div class="main">
             <div class="card">
                 <div class="card-header">
-                    <h2>Thêm Mới Size</h2>
+                    <h2>
+                        <?php
+                            if (isset($_GET['id']))
+                                echo "Sửa Thông Tin Size";
+                            else
+                                echo "Thêm Mới Size";
+                        ?>
+                    </h2>
                 </div>
                 <div class="card-body">
                     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
@@ -47,18 +54,43 @@
                                 >
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-3 form-group">
+                                <label for="status">Trạng Thái:</label>
+                                <select name="status" id="status" class="form-control">
+                                    <?php 
+                                        if (isset($_GET['id'])) {
+                                            $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                                            $id = $_GET['id'];
+                                            $result = mysqli_query($con, "select * from size where id = $id");
+                                            $row = mysqli_fetch_assoc($result);
+                                            if ($row['status'] == 0) {
+                                                echo '<option value="0" selected>Không hoạt động</option>';
+                                                echo '<option value="1">Đang hoạt động</option>';
+                                            }
+                                            else {
+                                                echo '<option value="0">Không hoạt động</option>';
+                                                echo '<option value="1" selected>Đang hoạt động</option>';
+                                            }
+                                            mysqli_close($con);
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Lưu</button>
                     </form>
                     <?php
                         $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
-                        if (isset($_POST['size'])) {
+                        if (isset($_POST['size']) && isset($_POST['status'])) {
                             $size = strtoupper($_POST['size']);
+                            $status = $_POST['status'];
                             if (isset($_POST['id'])) {
                                 $id = $_POST['id'];
-                                mysqli_query($con, "UPDATE size SET size='$size' WHERE id=$id");
+                                mysqli_query($con, "UPDATE size SET size='$size', status = $status WHERE id=$id");
                             }
                             else {
-                                mysqli_query($con, "INSERT INTO size(size) VALUES ('$size')");
+                                mysqli_query($con, "INSERT INTO size(size, status) VALUES ('$size', $status)");
                             }
                         }
                         mysqli_close($con);

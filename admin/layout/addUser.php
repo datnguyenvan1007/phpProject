@@ -19,7 +19,14 @@
         <div class="main">
             <div class="card">
                 <div class="card-header">
-                    <h2>Thêm Mới Tài Khoản</h2>
+                    <h2>
+                        <?php
+                            if (isset($_GET['id']))
+                                echo "Sửa Thông Tin Tài Khoản";
+                            else 
+                                echo "Thêm Mới Tài Khoản";
+                        ?>
+                    </h2>
                 </div>
                 <div class="card-body">
                     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">

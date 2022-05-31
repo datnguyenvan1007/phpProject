@@ -4,7 +4,7 @@
 
 .main {
     display: flex;
-    min-height: 15em;
+    min-height: 35em;
 }
 
 .main .category {
@@ -22,7 +22,7 @@
     
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 a{
@@ -34,13 +34,18 @@ a{
     margin-left: 30px;
 }
 .product .product-item {
-    margin-left: auto;
     width: calc((100% / 3) - 30px);
+    margin-left: 30px;
     margin-bottom: 15px;
     border-radius: 2px;
     box-shadow: 0 10px 10px #e6e7e8;
     border-radius: 10px;
 }
+
+.product .product-item a {
+    text-decoration: none;
+}
+
 .product .product-item img{
     border-radius: 10px 10px 0 0;
 }

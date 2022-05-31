@@ -31,6 +31,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Size</th>
+                                <th scope="col">Trạng Thái</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -40,9 +41,15 @@
                                 $result = mysqli_query($con, "select * from size");
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        $status;
+                                        if ($row['status'] == 1) 
+                                            $status = "Đang hoạt động";
+                                        else 
+                                            $status = "Không hoạt động";
                                         echo "<tr>"
                                             ."<td>".$row['id']."</td>"
                                             ."<td>".$row['size']."</td>"
+                                            ."<td>".$status."</td>"
                                             ."<td>"
                                                 ."<a href='./addSize.php?id=".$row['id']."' type='button' class='btn btn-primary mr-2'><i class='far fa-edit'></i></a>"
                                                 ."<button type='button' class='btn btn-danger delete'><i class='fas fa-trash-alt'></i></button>"
@@ -52,7 +59,7 @@
                                 }
                                 if (isset($_POST['deleteId'])) {
                                     $deleteId = $_POST['deleteId'];
-                                    mysqli_query($con, "DELETE FROM size WHERE id= $deleteId");
+                                    mysqli_query($con, "UPDATE size SET status = 0 WHERE id = $deleteId");
                                 }
                                 mysqli_close($con);
                             ?>                            
@@ -77,7 +84,7 @@
                 url: "<?php echo $_SERVER['PHP_SELF'] ?>",
                 type: 'post',
                 success: function(){
-                    $(tr).closest('tr').remove();
+                    $(tr).closest('tr').find('td:nth-child(3)').html("Không hoạt động");
                 }
             });
         }

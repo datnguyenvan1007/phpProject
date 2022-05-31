@@ -21,7 +21,14 @@
         <div class="main">
             <div class="card">
                 <div class="card-header">
-                    <h2>Thêm Mới Sản Phẩm</h2>
+                    <h2>
+                        <?php
+                            if (isset($_GET['id']))
+                                echo "Sửa Thông Tin Sản Phẩm";
+                            else
+                                echo "Thêm Mới Sản Phẩm";
+                        ?>
+                    </h2>
                 </div>
                 <div class="card-body">
                     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
@@ -124,7 +131,7 @@
                                     <option value="0">--Chọn--</option>
                                     <?php
                                         $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
-                                        $sql = "select * from size";
+                                        $sql = "select * from size where status = 1";
                                         $result = mysqli_query($con, $sql);
                                         if (mysqli_num_rows($result) > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
@@ -134,6 +141,8 @@
                                                     if ($sizeId == $row['id']) {
                                                         echo "<option value=". $row['id']. " selected>". $row['size']. "</option>";
                                                     }
+                                                    else
+                                                        echo "<option value=". $row['id']. ">". $row['size']. "</option>";
                                                 }
                                                 else
                                                     echo "<option value=". $row['id']. ">". $row['size']. "</option>";
@@ -145,24 +154,24 @@
                             </div>
                             <div class="col-2 form-group">
                                 <label for="color">Color:</label>
-                                <select name="color" id="color" class="form-control" require 
-                                <?php
-                                    if (isset($_GET['id'])) 
-                                        echo "disabled";
-                                ?>>
+                                <select name="color[]" id="color" class="form-control" require
+                                    <?php
+                                        if (isset($_GET['id']))
+                                            echo " disabled";
+                                        else
+                                            echo " multiple";
+                                    ?>
+                                >
                                     <option value="0">--Chọn--</option>
                                     <?php
                                         $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
-                                        $sql = "select * from color";
+                                        $sql = "select * from color where status = 1";
                                         $result = mysqli_query($con, $sql);
                                         if (mysqli_num_rows($result) > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                if (isset($_GET['id']) && isset($_GET['colorId'])) {
-                                                    $productId = $_GET['id'];
-                                                    $colorId = $_GET['colorId'];
-                                                    if ($colorId == $row['id']) {
-                                                        echo "<option value=". $row['id']. " selected>". $row['color']. "</option>";
-                                                    }
+                                                $colorId = $_GET['colorId'];
+                                                if (isset($colorId) && $colorId == $row['id']) {
+                                                    echo "<option value=". $row['id']. " selected>". $row['color']. "</option>";
                                                 }
                                                 else
                                                     echo "<option value=". $row['id']. ">". $row['color']. "</option>";
@@ -246,9 +255,9 @@
                         $uploadOk = 1;
                         $imageFileType = strtolower(pathinfo($image, PATHINFO_EXTENSION));
                         if (!getimagesize($_FILES['image']['tmp_name']))
-                        $uploadOk = 0;
+                            $uploadOk = 0;
                         if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg') 
-                        $uploadOk = 0;
+                            $uploadOk = 0;
                         if (isset($_POST['name']) && isset($_POST['quantity']) && isset($_POST['price'])
                         && $_POST['category'] > 0) {
                             $name = $_POST['name'];
@@ -275,7 +284,7 @@
                                 mysqli_query($con, "UPDATE `size_color` SET `status`=$status,`quantity`=$quantity WHERE product_id = $id and size_id = $size and color_id = $color");
                             }
                             else {
-                                if ($uploadOk && $_POST['color'] > 0 && $_POST['size'] > 0) {
+                                if ($uploadOk && $_POST['size'] > 0) {
                                     $color = $_POST['color'];
                                     $size = $_POST['size'];
                                     if (file_exists($target_file))
@@ -284,14 +293,16 @@
                                     $row = mysqli_fetch_assoc($resultProductId);
                                     if (isset($row['id'])) {
                                         $productId = $row['id'];
-                                        mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $color, $quantity)");
+                                        foreach ($color as $item)
+                                            mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $item, $quantity)");
                                     }
                                     else {
                                         mysqli_query($con, "INSERT INTO `product`(`name`, `image`, `price`, `category_id`, `description`) VALUES ('$name', '$image', $price, $category, '$description')");
                                         $resultProductId = mysqli_query($con, "SELECT * FROM `product` WHERE `name` = '$name' and `image` = '$image' and `price` = $price and `category_id` = $category");
                                         $row = mysqli_fetch_assoc($resultProductId);
                                         $productId = $row['id'];
-                                        mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $color, $quantity)");
+                                        foreach ($color as $item)
+                                            mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $color, $quantity)");
                                         move_uploaded_file($_FILES["image"]["tmp_name"], $image);
                                     }
                                 }
@@ -304,33 +315,4 @@
         </div>
     </main>
 </body>
-<!-- <script>
-    $('.save').on('click', function () {
-        var productName = $('#name').val();
-        var category = $('#category').val();
-        var color = $('#color').val();
-        var size = $('#size').val();
-        var quantity = $('#quantity').val();
-        category = parseInt(category);
-        color = parseInt(color);
-        size = parseInt(size);
-        quantity = parseInt(quantity);
-        $.ajax({
-            data: {
-                productName: productName,
-                category: category,
-                color: color,
-                size: size,
-                quantity: quantity
-            },
-            type: 'post',
-            url: "../ajax/ajax_product.php",
-            success: function () {
-                $('#size').val(0);
-                $('#color').val(0);
-                $('#quantity').val('');
-            }
-        })
-    })
-</script> -->
 </html>

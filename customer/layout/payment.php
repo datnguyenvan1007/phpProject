@@ -20,7 +20,8 @@
                 }
             }
             unset($_SESSION['cart']);
-            header('location:./home.php');
+            header('location:./home.php?status=1');
+            
         }
     }
     

@@ -47,11 +47,12 @@
 										<?php
 											$con = mysqli_connect("localhost", "root", "12345678", "projectphp");
 											for ($i = 1; $i <= 12; $i++) {
-												$result = mysqli_query($con, "SELECT SUM(quantity * price) 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id AND MONTH(s.created_date) = $i");
+												$result = mysqli_query($con, "SELECT CASE WHEN ISNULL(SUM(quantity * price)) THEN '0' ELSE SUM(quantity * price) END AS 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id AND MONTH(s.created_date) = $i");
 												while ($row = mysqli_fetch_assoc($result)) {
+													$price = number_format($row['sum'], 0, '.', ',') . "đ";
 													echo "<tr>"
 														."<td>$i</td>"
-														."<td>".$row['sum']."</td>"
+														."<td>".$price."</td>"
 														."<td>"
 															.'<button type="button" class="btn btn-primary detail" data-toggle="modal" data-target="#exampleModalCenter">Chi tiết</button>'
 														."</td>"
@@ -60,9 +61,10 @@
 											}
 											$result = mysqli_query($con, "SELECT SUM(quantity * price) 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id");
 												while ($row = mysqli_fetch_assoc($result)) {
+													$price = number_format($row['sum'], 0, '.', ',') . "đ";
 													echo "<tr>"
 														."<th>Tổng:</th>"
-														."<th>".$row['sum']."</th>"
+														."<th>".$price."</th>"
 														."<th>"
 														."</th>"
 													."</tr>";

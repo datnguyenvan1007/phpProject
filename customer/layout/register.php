@@ -32,11 +32,12 @@
                 $address=$_POST['address'];
                 $role="khachHang";
                 $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
-                $check="SELECT `email` FROM `user` WHERE email=".$email;
-                $checked_value=$con->query($check);
+                $check="SELECT `email` FROM `user` WHERE email='$email'";
+                $result=mysqli_query($con,$check);
+                $row=mysqli_fetch_assoc($result);
 
                 if(!empty($name) && !empty($email) && !empty($pn) && !empty($pass) && !empty($address)){
-                    if(strcmp($email,$checked_value)==0){
+                    if(strcmp($email,$row['email'])!=0){
                         $sql = "INSERT INTO `user`(`id`, `fullname`, `password`, `phone`, `address`, `email`, `role`) VALUES 
                         ('','$name','$pass','$pn','$address','$email','$role')";
                         mysqli_query($con,$sql);
