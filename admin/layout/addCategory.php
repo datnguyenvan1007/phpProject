@@ -60,11 +60,28 @@
                             ?>
                             >
                         </div>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary" disabled>Lưu</button>
                     </form>
                 </div>
             </div>
         </div>
     </main>
 </body>
+<script>
+    function toggleButton () {
+        var category = $('#category').val();
+        var isCategory = category != '' ? true : false;
+        if (isCategory)
+            $('button').prop('disabled', 0);
+        $('#category').on('input', function () {
+            category = $('#category').val();
+            isCategory = category != '' ? true : false;
+            if (isCategory)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+    }
+    toggleButton();
+</script>
 </html>

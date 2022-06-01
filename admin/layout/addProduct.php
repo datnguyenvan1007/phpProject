@@ -247,7 +247,7 @@
                                 <textarea name="description" id="description" class="form-control" rows="10"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary" disabled>Lưu</button>
                     </form>
                     <?php
                         $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
@@ -315,4 +315,71 @@
         </div>
     </main>
 </body>
+<script>
+    function toggleButton () {
+        var name = $('#name').val();
+        var category = $('#category').val();
+        var size = $('#size').val();
+        var color = $('#color').val();
+        category = parseInt(category);
+        size = parseInt(size);
+        var isName = name != '' ? true : false;
+        var isCategory = category != 0 ? true : false;
+        var isSize = size != 0 ? true : false;
+        var isColor = color.length != 0 ? true : false;
+        var isPrice = price != ''  ? true : false;
+        var isQuantity = quantity != '' ? true : false;
+        $('#name').on('input', function () {
+            name = $('#name').val();
+            isName = name != '' ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#category').on('input', function () {
+            category = $('#category').val();
+            category = parseInt(category);
+            isCategory = category != 0 ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#size').on('change', function () {
+            size = $('#size').val();
+            size = parseInt(size);
+            isSize = size != 0 ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#color').on('change', function () {
+            color = $('#color').val();
+            isColor = color.length != 0 ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#price').on('input', function () {
+            price = $('#price').val();
+            isPrice = (price != '' && /^[0-9]+$/.test(price)) ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#quantity').on('input', function () {
+            quantity = $('#quantity').val();
+            isQuantity = quantity != '' ? true : false;
+            if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+                $('button').prop('disabled', 0);
+            else
+                $('button').prop('disabled', 1);
+        })
+    }
+    toggleButton();
+</script>
 </html>

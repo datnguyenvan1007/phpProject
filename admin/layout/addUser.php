@@ -158,7 +158,7 @@
                                 <span class="form-message"></span>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary" disabled>Lưu</button>
                     </form>
                     <?php
                         $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
@@ -184,4 +184,98 @@
         </div>
     </main>
 </body>
+<script>
+    function toggleButton () {
+        var fullname = $('#fullname').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var phone = $('#phone').val();
+        var address = $('#address').val();
+        var role = $('#role').val();
+        var isFullname, isEmail, isPassword, isPhone, isAddress, isRole;
+        isFullname = fullname != '' ? true : false;
+        isEmail = email != '' ? true : false;
+        isPassword = password != '' ? true : false;
+        isPhone = phone != '' ? true : false;
+        isAddress = address != '' ? true : false;
+        isRole = role != '0' ? true : false;
+        if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+        else
+            $('button').prop('disabled', 1);
+        $('#fullname').on('input', function () {
+            fullname = $('#fullname').val()
+            if (fullname != '') {
+                isFullname = true
+            }
+            else 
+                isFullname = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#email').on('input', function () {
+            email = $('#email').val();
+            if (email != '' && /.+@.+\..+/.test(email)) {
+                isEmail = true;
+            }
+            else 
+                isEmail = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#address').on('input', function () {
+            address = $('#address').val();
+            if (address != '') {
+                isAddress = true;
+            }
+            else
+                isAddress = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#password').on('input', function () {
+            password = $('#password').val();
+            if (password != '') {
+                isPassword = true;
+            }
+            else
+                isPassword = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#role').on('change', function () {
+            role = $('#role').val();
+            if (role != '0') {
+                isRole = true;
+            }
+            else
+                isRole = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+        $('#phone').on('input', function () {
+            phone = $('#phone').val();
+            if (phone != '' && /^[0-9]+$/.test(phone)) {
+                isPhone = true;
+            }
+            else
+                isPhone = false;
+            if (isFullname && isEmail && isAddress && isPassword && isPhone && isRole)
+                $('button').prop('disabled', 0)
+            else
+                $('button').prop('disabled', 1);
+        })
+    }
+    toggleButton();
+</script>
 </html>

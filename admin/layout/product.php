@@ -78,7 +78,7 @@
                         <tbody>
                             <?php 
                                 $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
-                                $sql = "SELECT p.id, p.name, p.image, p.price, p.category_id, s.size, c.color, p.category_id, sc.status, sc.quantity, sc.size_id, sc.color_id FROM product p, size_color sc, size s, color c WHERE p.id = sc.product_id and sc.size_id = s.id and sc.color_id = c.id";
+                                $sql = "SELECT p.id, p.name, p.image, p.price, p.category_id, s.size, c.color, p.category_id, sc.status, sc.quantity, sc.size_id, sc.color_id FROM product p, size_color sc, size s, color c WHERE p.id = sc.product_id and sc.size_id = s.id and sc.color_id = c.id and c.status = 1 and s.status = 1";
                                 $result = mysqli_query($con, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
