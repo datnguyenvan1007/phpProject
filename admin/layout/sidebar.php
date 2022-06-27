@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
 ?>
 <div class="sidebar position-fixed" id="accordion">
     <div class="sidebar-menu">
@@ -38,28 +39,6 @@
             <a href="./addProduct.php">Thêm Sản Phẩm</a>
         </div>
     </div>
-    <!-- <div class="sidebar-menu">
-        <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuColor" role="button" aria-expanded="true" aria-controls="collapseMenuProduct">
-            <div class="sidebar-menu-icon"><i class="far fa-palette"></i></div>
-            Quản Lý Màu Sắc
-            <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
-        </a>
-        <div class="collapse child-menu" id="collapseMenuColor" data-parent="#accordion">
-            <a href="./color.php">Màu Sắc</a>
-            <a href="./addColor.php">Thêm Màu Sắc</a>
-        </div>
-    </div>
-    <div class="sidebar-menu">
-        <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuSize" role="button" aria-expanded="true" aria-controls="collapseMenuSize">
-            <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>
-            Quản Lý Size
-            <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
-        </a>
-        <div class="collapse child-menu" id="collapseMenuSize" data-parent="#accordion">
-            <a href="./size.php">Size</a>
-            <a href="./addSize.php">Thêm Size</a>
-        </div>
-    </div> -->
     <div class="sidebar-menu">
         <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuOrder" role="button" aria-expanded="true" aria-controls="collapseMenuProduct">
             <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>

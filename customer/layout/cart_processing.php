@@ -14,26 +14,24 @@
         if(isset($_GET['amount'])){
             $amount=$_GET['amount'];
         }
-    }
-    $sql="select * from product p join size_color sc on p.id=sc.product_id where id= $id and size_id=$size and color_id=$color";
-    $result=mysqli_query($con, $sql);
-    if($result){
+        $sql="select * from product p join size_color sc on p.id=sc.product_id where id= $id and size_id=$size and color_id=$color";
+        $result=mysqli_query($con, $sql);
         $row=mysqli_fetch_assoc($result);
+        
+        $product=[
+            'id'=>$row['id'],
+            'name'=>$row['name'],
+            'image'=>$row['image'],
+            'size_id'=>$row['size_id'],
+            'color_id'=>$row['color_id'],
+            'price'=>$row['price'],
+            'quantity'=>$amount
+        ];
+        
     }
-    
-    $product=[
-        'id'=>$row['id'],
-        'name'=>$row['name'],
-        'image'=>$row['image'],
-        'size_id'=>$row['size_id'],
-        'color_id'=>$row['color_id'],
-        'price'=>$row['price'],
-        'quantity'=>$amount
-    ];
-    
         //them
         if(isset($_SESSION['cart'][$id+$id+$size+$color])){
-            $_SESSION['cart'][$id+$size+$color]['quantity']+=1;
+            $_SESSION['cart'][$id+$id+$size+$color]['quantity']+=$amount;
         }
         else{
             $_SESSION['cart'][$id+$id+$size+$color]=$product;

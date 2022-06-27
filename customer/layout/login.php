@@ -47,6 +47,9 @@
                     }
                 }
             }
+            if(isset($_GET['action'])&&$_GET['action']=='logout'){
+                session_destroy();
+            }
             mysqli_close($con);
 ?>
 
@@ -84,7 +87,7 @@
             </form>
             <a href="./home.php">Trở về</a>
             <a href="./register.php">Đăng ký</a>
-            <a href="./forgot_password.php">Quên mật khẩu</a>
+            <!-- <a href="./forgot_password.php">Quên mật khẩu</a> -->
         </div>
        
     </main>

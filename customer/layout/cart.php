@@ -102,7 +102,7 @@
                         <td class="quantity">
                             <div class="btn-group">
                                 
-                                <input type="text" name="quantity-input" id="<?php $value['id']; ?>" value="<?php echo $value['quantity']; ?>" readonly>
+                                <input type="text" name="quantity-input" id="<?php $value['id']; ?>" value="<?php echo $value['quantity']; ?>" readonly style="cursor: pointer;">
                                 
                             </div>
                         </td>
@@ -117,10 +117,7 @@
                 </tbody>
             </table>
             <div class="main-bottom">
-                <div class="left form-group">
-                    <label for="note">Chú thích cho cửa hàng</label>
-                    <textarea name="note" id="note" cols="30" rows="4" class="form-control"></textarea>
-                </div>
+                
                 <div class="right">
                     <div class="total-price">
                         <?php
@@ -128,7 +125,7 @@
                         ?>
                     </div>
                     <div class="button">
-                        <button type="button" id="update" class="btn btn-outline-dark">Cập nhật</button>
+                        
                         <a href="./payment.php?action=payment"><button type="button" class="btn btn-outline-dark">Thanh toán</button></a>
                     </div>
                 </div>

@@ -40,14 +40,21 @@ a{
     border-radius: 2px;
     box-shadow: 0 10px 10px #e6e7e8;
     border-radius: 10px;
+    
 }
 
 .product .product-item a {
     text-decoration: none;
+    
 }
 
 .product .product-item img{
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px;
+    transition: 1s;
+}
+.product .product-item img:hover{
+    transform: scale(90%);
+    box-shadow: 0px 10px 10px gray;
 }
 .product .product-item .product-item-name{
     font-weight: 500;
@@ -56,20 +63,26 @@ a{
 .product .product-item .product-item-price{
     color: red;
     margin-left: 5px;
-    
+    cursor: pointer;
+    font-weight: 500;
 }
 .product .product-item .product-item-price::after{
     content: 'đ';
     color: red;
 }
 #finding-product{
+    width: 100px;
+    padding: 5px 0;
     border-radius: 20px;
     margin-top: 10px;
     margin-left: 30%;
+    font-weight: 500;
+    transition: 0.5s;
 }
 #finding-product:hover{
-    background-color: yellow;
+    background-color: rgb(255, 170, 0);
     color: black;
+    box-shadow: 5px 10px 18px gray;
 }
 /* .color input[type="checkbox"] {
     background-color: red;

@@ -18,7 +18,13 @@
         <div class="main">
             <div class="card">
                 <div class="card-header">
-                    <h2>Danh Sách Khách Hàng</h2>
+                    <?php
+                        $role = $_GET['role'];
+                        if (strcmp($role, "'khachHang'") == 0)
+                            echo "<h2>Danh Sách Khách Hàng</h2>";
+                        if (strcmp($role, "'nhanVien'") == 0)
+                            echo "<h2>Danh Sách Nhân Viên</h2>"
+                    ?>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-bordered">
@@ -37,7 +43,7 @@
                             <?php
                                 $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
                                 $role = $_GET['role'];
-                                $result = mysqli_query($con, "select * from user where role = $role");
+                                $result = mysqli_query($con, "select * from user where role = $role and status = 1");
                                 if (mysqli_num_rows($result) > 0)
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo '<tr>'
@@ -55,7 +61,7 @@
                                     }
                                     if (isset($_POST['deleteId'])) {
                                         $deleteId = $_POST['deleteId'];
-                                        mysqli_query($con, "DELETE FROM `user` WHERE `id` = $deleteId");
+                                        mysqli_query($con, "update user set status = 0 where id = $deleteId");
                                     }
                                 mysqli_close($con);
                             ?>

@@ -22,90 +22,6 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body> 
-    <!-- <header>
-        <input type="checkbox" id="toggle-modal" hidden checked>
-        <div class="modal-cart-container">
-            <label for="toggle-modal">
-                <div class="cart-overlay"></div>
-            </label>
-            <div class="cart">
-                <div class="cart-header">
-                    <h4>Giỏ hàng</h4>
-                    <label for="toggle-modal">
-                        <i class="fas fa-times close"></i>
-                    </label>
-                </div>
-                <div class="cart-product">
-                    <div class="image">
-                        <img src="../images/u_appiano_g_c9999_0_ffb384e676414958b9353f01f5b1e67b_3e43b632c6e84e2fbe9c31ceeb93f8ea_large.webp" alt="" width="100%">
-                    </div>
-                    <div class="info">
-                        <div class="product-name">
-                            Giày thể thao Sneakers
-                        </div>
-                        <div class="product-quantity-price">
-                            <div class="quantity btn-group">
-                                <button type="button" value="-">-</button>
-                                <input type="text" class="quantity-input" value="1" readonly>
-                                <button type="button" value="+">+</button>
-                            </div>
-                            <div class="price">
-                                1,190,000đ
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart-footer">
-                    <label for="note">
-                        Ghi chú hoặc Điền thông tin Xuất Hóa Đơn (Nếu có)
-                    </label>
-                    <textarea name="note" id="note" cols="40" rows="5"></textarea>
-                    <div class="d-flex justify-content-between">
-                        <div>Tổng tiền</div>
-                        <div class="total-price">350,000</div>
-                    </div>
-                    <div class="cart-footer-note">
-                        Phí vận chuyển được tính tại bước thanh toán
-                    </div>
-                    <button type="button">Thanh toán <i class="fas fa-angle-right"></i></button>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="logo-search-icon d-flex justify-content-between align-items-center">
-                <div class="search d-flex align-items-center">
-                    <form action="">
-                        <input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa tìm kiếm...">
-                    </form>
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="logo">
-                    À Shoes
-                </div>
-                <div class="icon d-flex justify-content-between">
-                    <div class="icon-user position-relative">
-                        <i class="fal fa-user"></i>
-                        <ul class="position-absolute">
-                            <li>
-                                <a href="./login.html">Đăng nhập</a>
-                            </li>
-                            <li>
-                                <a href="./register.html">Đăng ký</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <label for="toggle-modal">
-                        <div class="icon-cart position-relative">
-                            <i class="far fa-shopping-cart"></i>
-                            <div class="cart-index position-absolute">0</div>
-                        </div>
-                    </label>
-                </div>
-            </div>
-            
-        </div>
-    </header> -->
-    
     <?php
         if(isset($_GET['status'])){
             echo '<script>alert("Đặt hàng thành công")</script>';
@@ -119,6 +35,7 @@
         <div class="main">
             <div class="category">
                 <form action="" method="POST">
+                    <!-- tim price -->
                     <div class="category-item">
                         <div class="category-title">
                             KHOẢNG GIÁ
@@ -126,6 +43,7 @@
                         <input type="range" name="category-title-price" id="category-title-price" onchange="getvalue()" min="100000" max="1000000" step="10000">
                         <input type="text" name="value" id="value" style="border: 2px solid grey; border-radius: 10px; width: 100px; padding-left: 10px;">
                     </div>
+                    <!-- tim size -->
                     <div class="category-item">
                         <div class="category-title">
                             KÍCH CỠ
@@ -144,7 +62,9 @@
                             }
                             
                             ?>   
+                            
                     </div>
+                    <!-- tim color -->
                     <div class="category-item color">
                         <div class="category-title">
                             MÀU SẮC
@@ -192,28 +112,39 @@
                 <div class="product">
                         <?php
                         $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
-                        $sql="SELECT * FROM `product` ";
+                        $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id where status=1";
+                        // hien thi cac san pham theo danh muc
                         if(isset($_GET["id"])){
-                            $sql.="where category_id=".$_GET["id"];
+                            $sql.=" and category_id=".$_GET["id"];
                             
                         }
                         if(isset($_GET['searchProduct'])){
                             $sql="SELECT * FROM `product` WHERE name LIKE N'%".$_GET["searchProduct"]."%'";
                         }
+                        //tim kiem theo lua chon
+                        //var_dump($_POST['size'],$_POST['value'],$_POST['color']);
                         if(isset($_POST['value'])){
-                            $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id WHERE price<=".$_POST['value'];
-                            if(isset($_POST['size'])){
-                                if($_POST['size']!=0){
-                                     $sql.=" and size_id=".$_POST['size'];
-                                }
-                                
-                                if(isset($_POST['color'])){
-                                    if($_POST['color']!=0){
-
-                                        $sql.=" and color_id=".$_POST['color'];
-                                    }
-                                }
-                                    
+                            if($_POST['size']!=null||$_POST['color']!=null){
+                                $sql.=" and price<=".$_POST['value'];
+                            }
+                            else if($_POST['value']!=""){
+                                $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id WHERE status=1 and price<=".$_POST['value'];
+                            }
+                        }
+                        if(isset($_POST['size'])){
+                            if($_POST['value']!=""||$_POST['color']!=null){
+                                $sql.=" and size_id=".$_POST['size'];
+                            }
+                            else if($_POST['size']!=null){
+                                $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id WHERE status=1 and size_id=".$_POST['size'];
+                            }
+                        }
+                        if(isset($_POST['color'])){
+                            if($_POST['value']!=""||$_POST['size']!=null){
+                                $sql.=" and color_id=".$_POST['color'];
+                            }
+                            else if($_POST['color']!=null){
+                                $sql="SELECT DISTINCT p.image, p.name, p.price, p.id FROM `product` p join size_color sc on p.id=sc.product_id WHERE status=1 and color_id=".$_POST['color'];
                             }
                         }
                         $result=mysqli_query($con, $sql);

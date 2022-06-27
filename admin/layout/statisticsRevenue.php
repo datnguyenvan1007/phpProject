@@ -47,19 +47,19 @@
 										<?php
 											$con = mysqli_connect("localhost", "root", "12345678", "projectphp");
 											for ($i = 1; $i <= 12; $i++) {
-												$result = mysqli_query($con, "SELECT CASE WHEN ISNULL(SUM(quantity * price)) THEN '0' ELSE SUM(quantity * price) END AS 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id AND MONTH(s.created_date) = $i");
+												$result = mysqli_query($con, "SELECT CASE WHEN ISNULL(SUM(quantity * price)) THEN '0' ELSE SUM(quantity * price) END AS 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id AND MONTH(s.created_date) = $i AND ps.status = 2");
 												while ($row = mysqli_fetch_assoc($result)) {
 													$price = number_format($row['sum'], 0, '.', ',') . "đ";
 													echo "<tr>"
 														."<td>$i</td>"
-														."<td>".$price."</td>"
+														."<td price = ".$row['sum'].">".$price."</td>"
 														."<td>"
 															.'<button type="button" class="btn btn-primary detail" data-toggle="modal" data-target="#exampleModalCenter">Chi tiết</button>'
 														."</td>"
 													."</tr>";
 												}
 											}
-											$result = mysqli_query($con, "SELECT SUM(quantity * price) 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id");
+											$result = mysqli_query($con, "SELECT SUM(quantity * price) 'sum' FROM product_saleorder ps, product p, saleorder s WHERE ps.product_id = p.id AND ps.saleorder_id = s.id AND ps.status = 2");
 												while ($row = mysqli_fetch_assoc($result)) {
 													$price = number_format($row['sum'], 0, '.', ',') . "đ";
 													echo "<tr>"
@@ -89,7 +89,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-4">
+						<div class="col-6">
 							<div class="card">
 								<div class="card-header">
 									<h5 class="card-title">Biểu đồ thống kê sản phẩm</h5>
@@ -100,7 +100,7 @@
 									</div>
 								</div>
 							</div>
-						</div> -->
+						</div>
                     </div>  
                 </div>
             </div>
@@ -126,21 +126,35 @@
 		})
 	})
 </script>
-<!-- <script src="../js/app.js"></script>
+<script src="../js/app.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
+		var dataChart = new Array();
+		var len = $('td:nth-child(2)').length;
+		for (var i = 0; i < len; i++) {
+			dataChart.push($('td:nth-child(2)')[i].getAttribute('price'));
+		}
+		console.log(dataChart);
 		// Pie chart
 		new Chart(document.getElementById("chartjs-pie"), {
 			type: "pie",
 			data: {
-				labels: ["Đã bán", "Tồn kho"],
+				labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
 				datasets: [{
-					data: [260, 125],
+					data: dataChart,
 					backgroundColor: [
 						window.theme.primary,
 						window.theme.warning,
 						window.theme.danger,
-						"#dee2e6"
+						window.theme.success,
+						"#00FF00",
+						"#C0C0C0",
+						"#808000",
+						"#800080",
+						"#008080",
+						"#FFCCFF",
+						"#99CC00",
+						"#FF0000"
 					],
 					borderColor: "transparent"
 				}]
@@ -150,5 +164,5 @@
 			}
 		});
 	});
-</script> -->
+</script>
 </html>

@@ -23,14 +23,16 @@
         $result = mysqli_query($con, $sql);
         $i = 1;
         while ($row = mysqli_fetch_assoc($result)) {
+            $price = number_format($row['price'], 0, '.', ',') . "đ";
+            $total = number_format($row['total'], 0, '.', ',') . "đ";
             $html .= '<tr>'
                 .'<td>'.$i.'</td>'
                 .'<td>'.$row['name'].'</td>'
                 .'<td>'.$row['size'].'</td>'
                 .'<td>'.$row['color'].'</td>'
                 .'<td>'.$row['quantity'].'</td>'
-                .'<td>'.$row['price'].'</td>'
-                .'<td>'.$row['total'].'</td>'
+                .'<td>'.$price.'</td>'
+                .'<td>'.$total.'</td>'
                 .'</tr>';
             $i++;
         }

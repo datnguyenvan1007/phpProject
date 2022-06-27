@@ -6,17 +6,22 @@
 
 .table {
     border-bottom: 1px solid #e6e5e5;
+    cursor: pointer;
 }
 
 .table tr td {
     padding: 30px 20px;
     vertical-align: middle;
+
 }
 
 .table .image {
     width: 15%;
+    
 }
-
+.table .image img{
+    border-radius: 10px;
+}
 .table .product-info {
     width: 40%;
 }
@@ -97,14 +102,10 @@
     margin-top: 30px;
 }
 
-.main-bottom .left {
-    width: 60%;
-}
-
 .main-bottom .right {
-    width: 40%;
-    padding-left: 30px;
+    padding-left: 80%;
     text-align: right;
+    
 }
 
 .total-price {

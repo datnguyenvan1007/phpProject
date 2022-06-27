@@ -86,7 +86,7 @@
                             <?php 
                                 if(isset($_SESSION['user'])){
                                     echo '<li style="color: black;">'.$_SESSION['user']['email'].'</li>';
-                                    echo '<li><a href="./login.php">Đăng Xuất</a></li>';
+                                    echo '<li><a href="./login.php?action=logout">Đăng Xuất</a></li>';
                                 }
                                 
                                 else{
