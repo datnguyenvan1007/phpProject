@@ -10,19 +10,15 @@
                 if (mysqli_num_rows($result) > 0)
                 while ($row = mysqli_fetch_assoc($result)) {
                     if (strcmp($email, $row['email']) == 0 && strcmp($password, $row['password']) == 0) {
-                        // setcookie("email", $email, time() + (86400 * 10), "/");
-                        // setcookie("password", $password, time() + (86400 * 10), "/");
-
-                        //var_dump($_COOKIE['email']);
-                        // $_COOKIE['email'] = $email;
-                        // $_COOKIE['password'] = $password;
+                        
                         $_SESSION['user']['id']=$row['id'];
                         $_SESSION['user']['email']=$email;
                         $_SESSION['user']['password']=$password;
                         $_SESSION['user']['name']=$row['fullname'];
                         $_SESSION['user']['address']=$row['address'];
                         $_SESSION['user']['phoneNumber']=$row['phone'];
-                        //echo "<div>".$row['role']."</div>";
+                        $_SESSION['user']['status']=$row['status'];
+                        
                         if (strcmp($row['role'], "nhanVien") == 0)
                             $logined = 1;
                         if (strcmp($row['role'], "khachHang") == 0)
@@ -30,20 +26,32 @@
                         break;
                     }
                 }
-                // var_dump($_COOKIE['email']);
+                
                 if ($logined == 1) {
-                    echo "<script>document.location.href = '../../admin/layout/admin.php';</script>";
-                }
-                if ($logined == 2) {
-                    
-                    if(isset($_GET['action'])){
-                        $action=$_GET['action'];
-                        
-                        header('location: ./'.$action.'.php');
+                    if($_SESSION['user']['status']==1){
+                        echo "<script>document.location.href = '../../admin/layout/admin.php';</script>";
                     }
                     else{
                         
-                        echo "<script>document.location.href = './home.php?';</script>";
+                        echo '<script>alert("Tài khoản đã bị khóa!!!")</script>';
+                    }
+                }
+                if ($logined == 2) {
+                    if($_SESSION['user']['status']==1){
+                        if(isset($_GET['action'])){
+                            $action=$_GET['action'];
+                            
+                            header('location: ./'.$action.'.php');
+                        }
+                        else{
+                            
+                            echo "<script>document.location.href = './home.php?';</script>";
+                        }
+                        
+                    }
+                    else{
+                        
+                        echo '<script>alert("Tài khoản đã bị khóa!!!")</script>';
                     }
                 }
             }
@@ -78,6 +86,7 @@
         include 'header.php';
     ?>
     <main>
+        
         <div class="container d-flex flex-column align-items-center">
             <div class="title">ĐĂNG NHẬP</div>
             <form action="" method="post" class="d-flex flex-column">
@@ -172,5 +181,6 @@
     $(document).on('input', '#toggle-modal', function () {
         document.location.href="./cart.php";
     })
+    
 </script>
 </html>

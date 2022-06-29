@@ -3,7 +3,7 @@
         <li><a href="./home.php">HOME</a></li>
         <?php
         $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
-        $sql = "select * from category";
+        $sql = "select * from category where status=1";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {

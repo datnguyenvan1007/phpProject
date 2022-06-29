@@ -34,16 +34,14 @@
                 
                 <?php
                     $con=mysqli_connect('localhost','root','12345678','projectphp');
-                    $sql="SELECT p.id, p.name 'pr', p.image, p.price, c.name FROM `product` p join category c on p.category_id=c.id WHERE p.id=".$_GET["id"];
+                    $sql="SELECT p.id, p.name 'pr', p.image, p.price, c.name FROM `product` p join category c on p.category_id=c.id WHERE status=1 and p.id=".$_GET["id"];
                     $result=mysqli_query($con,$sql);
                     if(mysqli_num_rows($result)>0){
                         $row=mysqli_fetch_assoc($result);
                             echo '<div class="contain_big_image">
                             <img src="'.$row["image"].'" alt="" style="width: 100%"></div>' ;
                 ?>
-                <!-- <div class="contain_big_image">
-                    <img src="/frontEndProject/image/big_image.jpeg" alt="" style="width: 100%">
-                </div> -->
+                
             </div>
             <div class="contain_detail_product d-flex flex-column">
                 <div class="title_product">
@@ -57,7 +55,7 @@
                     <b>SKU:</b><?php echo $row["id"]?>
                 </div>
                 <div class="price_product">
-                    <?php echo $row["price"] ?><u>đ</u>  
+                    <?php echo number_format($row["price"]) ?><u>đ</u>  
                 </div>
                 <?php
 
@@ -71,7 +69,7 @@
                         <select name="size" id="size" style="padding: 5px; border-radius: 5px; border: 2px solid rgb(212, 212, 212);">
                             <?php
                             $con=mysqli_connect('localhost','root','12345678','projectphp');
-                            $sql="SELECT DISTINCT size_id, size FROM size_color sc join size s on sc.size_id=s.id WHERE sc.product_id=".$_GET["id"];
+                            $sql="SELECT DISTINCT size_id, size FROM size_color sc join size s on sc.size_id=s.id WHERE sc.status=1 and sc.product_id=".$_GET["id"];
                             $result=mysqli_query($con,$sql);
                             if(mysqli_num_rows($result)>0){
                                 while($row=mysqli_fetch_assoc($result)){
@@ -85,25 +83,26 @@
                     <form action="" style="margin-left: 80px;">
                         <label for=""><b>Số lượng: </b></label>
                         <button id="minus" type="button" value="-" onclick="cal_amountProduct_minus()">-</button>
-                        <input type="text" name="amount_product" id="amount_product" value="1">
+                        <input type="text" name="amount_product" id="amount_product" value="1" readonly style="cursor: pointer;">
                         <button id="plus" type="button" value="+" onclick="cal_amountProduct_plus()">+</button>
                     </form>
                 </div>
                 <div class="product_color">
                     <label for="color"><b>Màu: </b></label>
                     <select name="color" id="color" style="padding: 5px; border-radius: 5px; border: 2px solid rgb(212, 212, 212);">
-                    <?php
+                        <?php
                         $con=mysqli_connect('localhost','root','12345678','projectphp');
                         
-                        $sql="SELECT * FROM `size_color` sc join color c on sc.color_id=c.id WHERE product_id=".$_GET['id']." LIMIT 1";
+                        $sql="SELECT * FROM `size_color` sc join color c on sc.color_id=c.id WHERE sc.status=1 and product_id=".$_GET['id']." LIMIT 1";
                         $result=mysqli_query($con,$sql);
                         if(mysqli_num_rows($result)>0){
                             while($row=mysqli_fetch_assoc($result)){
                                 echo '<option value="'.$row["color_id"].'">'.$row["color"].'</option>';
                                 
                             }}
-                        mysqli_close($con);
-                        ?>
+                            mysqli_close($con);
+                            ?>
+                        
                         
                     </select>
                 </div>
@@ -145,12 +144,14 @@
     })
     
     $('.btn_redirect').on('click', function () {
-        var id = $('#id').val();
-        var size = $('#size').val();
-        var amount = $('#amount_product').val();
-        var color=$('#color').val();
         
+        var amount = $('#amount_product').val();
+        var size = $('#size').val();
+        var color=$('#color').val();    
+        var id = $('#id').val();
         document.location.href = './cart_processing.php?id=' + id + '&size= ' + size + '&color=' + color + '&amount=' + amount+ '&action=add';
+        
+        
     })
     $(document).on('input', '#toggle-modal', function () {
         document.location.href="./cart.php";

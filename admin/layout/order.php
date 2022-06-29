@@ -66,10 +66,14 @@
                                     .'<td>'.$row['quantity'].'</td>'
                                     .'<td>'.$row['created_date'].'</td>'
                                     .'<td>'.$row['status'].'</td>'
-                                    .'<td>'
-                                        .'<button type="button" class="btn btn-primary mr-2 confirm">Xác nhận</button>'
-                                        .'<button type="button" class="btn btn-danger delete">Hủy</button>'
-                                    .'</td>'
+                                    .'<td>';
+                                    if ($row['status'] == 'Chờ xác nhận')
+                                        echo '<button type="button" class="btn btn-primary mr-2 confirm">Xác nhận</button>'
+                                        .'<button type="button" class="btn btn-danger delete">Hủy</button>';
+                                    else 
+                                        echo '<button type="button" class="btn btn-primary mr-2 confirm" disabled>Xác nhận</button>'
+                                        .'<button type="button" class="btn btn-danger delete" disabled>Hủy</button>';
+                                    echo '</td>'
                                     .'</tr>';
                                 }
                             }
@@ -113,17 +117,22 @@
         if (con) {
             $.ajax({ 
                 data: {
-                    id: 2,
+                    option: 2,
                     saleorderId: id,
                     productId: productId,
                     sizeId: sizeId,
                     colorId: colorId,
                     quantity: quantity
                 },
-                url: "../ajax/ajax_order.php",
+                url: "../ajax/ajax_order_btn.php",
                 type: 'post',
-                success: function(){
-                    $(tr).closest('tr').find('td:nth-child(8)').html('Đã xác nhận');
+                success: function(html){
+                    if (html == "") {
+                        $(tr).closest('tr').find('td button').attr('disabled', 'true');
+                        $(tr).closest('tr').find('td:nth-child(8)').html('Đã xác nhận');
+                    }
+                    else 
+                        alert(html);
                 }
             });
         }
@@ -136,22 +145,27 @@
         var productId = $(this).closest('tr').find('td:nth-child(3)').attr('productId');
         var sizeId = $(this).closest('tr').find('td:nth-child(4)').attr('sizeId');
         var colorId = $(this).closest('tr').find('td:nth-child(5)').attr('colorId');
+        var quantity = $(this).closest('tr').find('td:nth-child(6)').html();
         id = parseInt(id);
         sizeId = parseInt(sizeId);
         colorId = parseInt(colorId);
         productId = parseInt(productId);
+        quantity = parseInt(quantity);
         if (con) {
             $.ajax({ 
                 data: {
-                    id: 0,
+                    option: 0,
                     saleorderId: id,
                     productId: productId,
                     sizeId: sizeId,
                     colorId: colorId,
+                    quantity: quantity
                 },
-                url: "../ajax/ajax_order.php",
+                url: "../ajax/ajax_order_btn.php",
                 type: 'post',
-                success: function(){
+                success: function(html){
+                    console.log(html);
+                    $(tr).closest('tr').find('td button').attr('disabled', 'true');
                     $(tr).closest('tr').find('td:nth-child(8)').html('Đã hủy');
                 }
             });

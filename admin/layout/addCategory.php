@@ -46,21 +46,54 @@
                                     $row = mysqli_fetch_assoc($result);
                                     echo "value='" .$row['name']. "'";
                                 }
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    $name = $_POST['category'];
-                                    $categoryId = $_POST['categoryId'];
-                                    if (isset($categoryId)) {
-                                        mysqli_query($con, "UPDATE category SET name='$name' WHERE id = $categoryId");
-                                    }
-                                    else{
-                                        mysqli_query($con, "INSERT INTO category(name) VALUES ('$name')");
-                                    }
-                                }
                                 mysqli_close($con);
                             ?>
                             >
                         </div>
+                        <div class="form-group">
+                            <label for="status">Trạng thái: </label>
+                            <select name="status" id="status" class="form-control col-4">
+                                <?php
+                                    $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
+                                    $id = $_GET['id'];
+                                    if (isset($id)) {
+                                        $sql = "select * from category where id = $id";
+                                        $result = mysqli_query($con, $sql);
+                                        $row = mysqli_fetch_assoc($result);
+                                        if ($row['status'] == 1) {
+                                            echo '<option value="1" selected>Đang hoạt động</option>';
+                                            echo '<option value="0">Không hoạt động</option>';
+                                        }
+                                        else {
+                                            echo '<option value="1">Đang hoạt động</option>';
+                                            echo '<option value="0" selected>Không hoạt động</option>';
+                                        }
+                                    }
+                                    else {
+                                        echo '<option value="1" selected>Đang hoạt động</option>';
+                                        echo '<option value="0">Không hoạt động</option>';
+                                    }
+                                    mysqli_close($con);
+                                ?>
+                                
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary" disabled>Lưu</button>
+                        <?php
+                            $con = mysqli_connect('localhost', 'root', '12345678', 'projectphp');
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $name = $_POST['category'];
+                                $status = $_POST['status'];
+                                $categoryId = $_POST['categoryId'];
+                                if (isset($categoryId)) {
+                                    mysqli_query($con, "UPDATE category SET name='$name', status = '$status' WHERE id = $categoryId");
+                                }
+                                else{
+                                    mysqli_query($con, "INSERT INTO category(name, status) VALUES ('$name', '$status')");
+                                }
+                            }
+                            mysqli_close($con);
+                        ?>
                     </form>
                 </div>
             </div>

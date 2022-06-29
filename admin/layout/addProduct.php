@@ -110,8 +110,10 @@
                                     <?php
                                         if (isset($_GET['id'])) {
                                             $id = $_GET['id'];
+                                            $colorId = $_GET['colorId'];
+                                            $sizeId = $_GET['sizeId'];
                                             $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
-                                            $result = mysqli_query($con, "select * from size_color where product_id = $id");
+                                            $result = mysqli_query($con, "select * from size_color where product_id = $id and size_id = $sizeId and color_id = $colorId");
                                             $row = mysqli_fetch_assoc($result);
                                             echo "value = '".$row['quantity']."'";
                                             mysqli_close($con);
@@ -284,12 +286,10 @@
                                 mysqli_query($con, "UPDATE `size_color` SET `status`=$status,`quantity`=$quantity WHERE product_id = $id and size_id = $size and color_id = $color");
                             }
                             else {
-                                if ($uploadOk && $_POST['size'] > 0) {
+                                if ($_POST['size'] > 0) {
                                     $color = $_POST['color'];
                                     $size = $_POST['size'];
-                                    if (file_exists($target_file))
-                                        unlink($image);
-                                    $resultProductId = mysqli_query($con, "SELECT * FROM `product` WHERE `name` = '$name' and `image` = '$image' and `price` = $price and `category_id` = $category");
+                                    $resultProductId = mysqli_query($con, "SELECT * FROM `product` WHERE `name` = '$name' and `price` = $price and `category_id` = $category");
                                     $row = mysqli_fetch_assoc($resultProductId);
                                     if (isset($row['id'])) {
                                         $productId = $row['id'];
@@ -297,13 +297,18 @@
                                             mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $item, $quantity)");
                                     }
                                     else {
-                                        mysqli_query($con, "INSERT INTO `product`(`name`, `image`, `price`, `category_id`, `description`) VALUES ('$name', '$image', $price, $category, '$description')");
-                                        $resultProductId = mysqli_query($con, "SELECT * FROM `product` WHERE `name` = '$name' and `image` = '$image' and `price` = $price and `category_id` = $category");
-                                        $row = mysqli_fetch_assoc($resultProductId);
-                                        $productId = $row['id'];
-                                        foreach ($color as $item)
-                                            mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $color, $quantity)");
-                                        move_uploaded_file($_FILES["image"]["tmp_name"], $image);
+                                        if ($uploadOk) {
+                                            if (file_exists($target_file))
+                                            unlink($image);
+                                            mysqli_query($con, "INSERT INTO `product`(`name`, `image`, `price`, `category_id`, `description`) VALUES ('$name', '$image', $price, $category, '$description')");
+                                            $resultProductId = mysqli_query($con, "SELECT * FROM `product` WHERE `name` = '$name' and `price` = $price and `category_id` = $category");
+                                            $row = mysqli_fetch_assoc($resultProductId);
+                                            $productId = $row['id'];  
+                                            foreach ($color as $item) {  
+                                                mysqli_query($con, "INSERT INTO `size_color`(`product_id`, `size_id`, `color_id`, `quantity`) VALUES ($productId, $size, $item, $quantity)");
+                                            }
+                                            move_uploaded_file($_FILES["image"]["tmp_name"], $image);
+                                        }
                                     }
                                 }
                             }

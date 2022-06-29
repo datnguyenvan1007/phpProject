@@ -81,11 +81,11 @@
                         
                         <i class="fal fa-user"></i>
                       
-                        <ul class="position-absolute">
+                        <ul class="position-absolute" >
                             
                             <?php 
                                 if(isset($_SESSION['user'])){
-                                    echo '<li style="color: black;">'.$_SESSION['user']['email'].'</li>';
+                                    echo '<li style="color: black;font-size: small;">'.$_SESSION['user']['email'].'</li>';
                                     echo '<li><a href="./login.php?action=logout">Đăng Xuất</a></li>';
                                 }
                                 

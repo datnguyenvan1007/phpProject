@@ -3,7 +3,7 @@
         $size = $_GET["size"];
         $con=mysqli_connect('localhost','root','12345678','projectphp');
                         
-        $sql="SELECT * FROM `size_color` sc join color c on sc.color_id=c.id WHERE sc.size_id=$size AND product_id=".$_GET["productId"];
+        $sql="SELECT * FROM `size_color` sc join color c on sc.color_id=c.id WHERE sc.size_id=$size AND sc.status=1 AND product_id=".$_GET["productId"];
         $result=mysqli_query($con,$sql);
 
         $content = "";  

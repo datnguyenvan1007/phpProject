@@ -4,21 +4,9 @@
 ?>
 <div class="sidebar position-fixed" id="accordion">
     <div class="sidebar-menu">
-        <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuUser" role="button" aria-expanded="true" aria-controls="collapseMenuUser">
-            <div class="sidebar-menu-icon"><i class="far fa-user"></i></div>
-            Quản Lý Tài Khoản
-            <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
-        </a>
-        <div class="collapse child-menu" id="collapseMenuUser" data-parent="#accordion">
-            <a href="./user.php?role='khachHang'">Khách hàng</a>
-            <a href="./user.php?role='nhanVien'">Nhân viên</a>
-            <a href="./addUser.php">Thêm tài khoản</a>
-        </div>
-    </div>
-    <div class="sidebar-menu">
         <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuCategory" role="button" aria-expanded="true" aria-controls="collapseMenuCategory">
             <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>
-            Quản Lý Danh Mục
+            Danh Mục Sản Phẩm
             <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
         </a>
         <div class="collapse child-menu" id="collapseMenuCategory" data-parent="#accordion">
@@ -28,8 +16,8 @@
     </div>
     <div class="sidebar-menu">
         <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuProduct" role="button" aria-expanded="true" aria-controls="collapseMenuProduct">
-            <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>
-            Quản Lý Sản Phẩm
+            <div class="sidebar-menu-icon"><i class="far fa-box"></i></div>
+            Sản Phẩm
             <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
         </a>
         <div class="collapse child-menu" id="collapseMenuProduct" data-parent="#accordion">
@@ -40,28 +28,30 @@
         </div>
     </div>
     <div class="sidebar-menu">
-        <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseMenuOrder" role="button" aria-expanded="true" aria-controls="collapseMenuProduct">
-            <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>
-            Quản Lý Hóa Đơn
-            <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
+        <a href="./order.php" class="d-flex position-relative align-items-center parent-menu collapsed">
+            <div class="sidebar-menu-icon"><i class="fal fa-ballot"></i></div>
+            Hóa Đơn
         </a>
-        <div class="collapse child-menu" id="collapseMenuOrder" data-parent="#accordion">
-            <a href="./order.php">Hóa Đơn</a>
-        </div>
     </div>
     <div class="sidebar-menu">
-        <a class="d-flex position-relative align-items-center parent-menu collapsed" data-toggle="collapse" href="#collapseStatistics" role="button" aria-expanded="true" aria-controls="collapseStatistics">
-            <div class="sidebar-menu-icon"><i class="fas fa-columns"></i></div>
-            Thống Kê
-            <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div>
+        <a class="d-flex position-relative align-items-center parent-menu collapsed" href="./user.php?role='khachHang'">
+            <div class="sidebar-menu-icon"><i class="far fa-user"></i></div>
+            Khách Hàng
+            <!-- <div class="sidebar-menu-arrow"><i class="fas fa-chevron-right"></i></div> -->
         </a>
-        <div class="collapse child-menu" id="collapseStatistics" data-parent="#accordion">
-            <a href="./statisticsRevenue.php">Doanh Thu</a>
-            <a href="./statisticsProductSold.php">Hàng Đã Bán</a>
-            <a href="./statisticsProductInStock.php">Hàng Tồn Kho</a>
-        </div>
+        <!-- <div class="collapse child-menu" id="collapseMenuUser" data-parent="#accordion">
+            <a href="./user.php?role='khachHang'">Khách hàng</a>
+            <a href="./user.php?role='nhanVien'">Nhân viên</a>
+            <a href="./addUser.php">Thêm tài khoản</a>
+        </div> -->
     </div>
-    <div class="sidebar-footer position-absolute">
+    <div class="sidebar-menu">
+        <a class="d-flex position-relative align-items-center parent-menu collapsed" href="./statistics.php">
+            <div class="sidebar-menu-icon"><i class="far fa-chart-bar"></i></div>
+            Thống Kê
+        </a>
+    </div>
+    <!-- <div class="sidebar-footer position-absolute">
         Logged in:
         <div class="user-logged">
             <?php
@@ -69,5 +59,5 @@
                     echo $_SESSION['user']['email'];
             ?>
         </div>
-    </div>
+    </div> -->
 </div>

@@ -62,7 +62,7 @@
                         </td>
                         <td class="product-info">
                             <div class="product-name">
-                                <a href="#">
+                                <a href="./detail_product.php?id=<?php echo $value['id'] ?>">
                                     <?php echo $value['name'] ?>
                                 </a>
                             </div>
@@ -100,10 +100,16 @@
                         </td>
                         <td class="price"><?php echo number_format($value['price'])?></td>
                         <td class="quantity">
-                            <div class="btn-group">
+                            <div class="btn-group" style="display:flex ; flex-direction: column;">
                                 
                                 <input type="text" name="quantity-input" id="<?php $value['id']; ?>" value="<?php echo $value['quantity']; ?>" readonly style="cursor: pointer;">
+                                <?php
                                 
+                                    if(isset($value['full'])){?>
+                                        <input type="text" name="quantity-input" style="border: none; font-size: small; width: fit-content; color: red;" id="<?php $value['id']; ?>" value="<?php echo "Chỉ còn: " .$value['full']." sản phẩm";?>" readonly style="cursor: pointer;">
+                                     <?php   
+                                    }
+                                ?>
                             </div>
                         </td>
                         <td class="subtotal-price">

@@ -50,7 +50,7 @@
                         </div>
                         <?php
                             $con=mysqli_connect('localhost','root','12345678','projectphp');
-                            $sql="select * from size";
+                            $sql="select * from size where status=1";
                             $result=mysqli_query($con,$sql);
                             if(mysqli_num_rows($result)>0){
                                 while($row=mysqli_fetch_assoc($result)){
@@ -71,7 +71,7 @@
                         </div>
                         <?php
                                 $con=mysqli_connect('localhost','root','12345678','projectphp');
-                                $sql="select * from color";
+                                $sql="select * from color where status=1";
                                 $result=mysqli_query($con,$sql);
                                 if(mysqli_num_rows($result)>0){
                                     while($row=mysqli_fetch_assoc($result)){
@@ -153,7 +153,7 @@
                                 echo '<div class="product-item">';
                                 echo '<a href="./detail_product.php?id='.$row["id"].'"><img src="'.$row["image"].'" alt="" width="100%">';
                                 echo '<div class="product-item-name">'.$row["name"].'</div></a>';
-                                echo '<div class="product-item-price">'.$row['price'].'</div>';
+                                echo '<div class="product-item-price">'.number_format($row['price']).'</div>';
                                 echo '</div>';
                             }
                         }

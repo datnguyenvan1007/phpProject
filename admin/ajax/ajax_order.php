@@ -9,22 +9,6 @@
         if ($status != 3)
             $sql .= " and ps.status = $status";
     }
-    if (isset($_POST['id']) && isset($_POST['saleorderId']) && isset($_POST['sizeId']) && isset($_POST['colorId']) && isset($_POST['productId']) && isset($_POST['quantity'])) {
-        $id = $_POST['id'];
-        $saleorderId = $_POST['saleorderId'];
-        $productId = $_POST['productId'];
-        $sizeId = $_POST['sizeId'];
-        $colorId = $_POST['colorId'];
-        $quantity = $_POST['quantity'];
-        $result = mysqli_query($con, "select * from size_color where product_id = $productId AND size_id = $sizeId AND color_id = $colorId");
-        $row = mysqli_fetch_assoc($result);
-        $quantityOld = $row['quantity'];
-        if ($id == 2 && $quantityOld >= $quantity) {
-            $quantity = $quantityOld - $quantity;
-            mysqli_query($con, "UPDATE `size_color` SET `quantity`= $quantity WHERE product_id = $productId AND size_id = $sizeId AND color_id = $colorId");
-        }
-        mysqli_query($con, "UPDATE product_saleorder SET status = $id WHERE saleorder_id = $saleorderId AND product_id = $productId AND size_id = $sizeId AND color_id = $colorId");
-    }
     $result = mysqli_query($con, $sql);
     $html = '';
     if (mysqli_num_rows($result) > 0) {
@@ -32,16 +16,20 @@
             $html .= '<tr>'
             .'<td>'.$row['id'].'</td>'
             .'<td>'.$row['fullname'].'</td>'
-            .'<td>'.$row['name'].'</td>'
+            .'<td productId = ' . $row['product_id'] .'>'.$row['name'].'</td>'
             .'<td sizeId = '. $row['size_id'] .'>'.$row['size'].'</td>'
             .'<td colorId = '. $row['color_id'] .'>'.$row['color'].'</td>'
             .'<td>'.$row['quantity'].'</td>'
             .'<td>'.$row['created_date'].'</td>'
             .'<td>'.$row['status'].'</td>'
-            .'<td>'
-                .'<button type="button" class="btn btn-primary mr-2 confirm">Xác nhận</button>'
-                .'<button type="button" class="btn btn-danger delete">Hủy</button>'
-            .'</td>'
+            .'<td>';
+            if ($row['status'] == 'Chờ xác nhận')
+                $html .= '<button type="button" class="btn btn-primary mr-2 confirm">Xác nhận</button>'
+                .'<button type="button" class="btn btn-danger delete">Hủy</button>';
+            else 
+                $html .= '<button type="button" class="btn btn-primary mr-2 confirm" disabled>Xác nhận</button>'
+                .'<button type="button" class="btn btn-danger delete" disabled>Hủy</button>';
+            $html .= '</td>'
             .'</tr>';
         }
     }

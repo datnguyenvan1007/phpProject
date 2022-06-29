@@ -60,7 +60,7 @@
             <form action="" method="post" class="d-flex flex-column">
                 <input type="text" name="fullname" id="fullname" placeholder="Họ và tên">
                 <input type="email" name="email" id="email" placeholder="Email">
-                <input type="number" name="phonenumber" id="phonenumber" placeholder="Số điện thoại">
+                <input type="text" name="phonenumber" id="phonenumber" placeholder="Số điện thoại">
                 <input type="password" name="password" id="password" placeholder="Mật khẩu">
                 <input type="text" name="address" id="address" placeholder="Địa chỉ">
                 <button type="submit" name="dangky" class="">Đăng ký</button>

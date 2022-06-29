@@ -26,6 +26,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Tên Danh Mục</th>
+                                <th scope="col">Trạng Thái</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -36,9 +37,11 @@
                                 $result = mysqli_query($con, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        $status = $row['status'] == 1 ? "Đang hoạt động" : "Không hoạt động";
                                         echo "<tr>";
                                         echo "<td>".$row['id']."</td>";
                                         echo "<td>".$row['name']."</td>";
+                                        echo "<td>".$status."</td>";
                                         echo '<td>'
                                             .'<a type="button" href="./addCategory.php?id='.$row['id'].'" class="btn btn-primary mr-2"><i class="far fa-edit text-white"></i></a>'
                                             .'<button type="button" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></button>'
@@ -47,8 +50,7 @@
                                 }
                                 if (isset($_POST['deleteId'])) {
                                     $deleteId = $_POST['deleteId'];
-                                    mysqli_query($con, "UPDATE `product` SET `category_id`= null WHERE `category_id` = $deleteId");
-                                    mysqli_query($con, "DELETE FROM `category` WHERE `id` = $deleteId");
+                                    mysqli_query($con, "UPDATE `category` SET status = 0 WHERE `id` = $deleteId");
                                 }
                                 mysqli_close($con);
                             ?>
@@ -73,7 +75,7 @@
                 url: "<?php echo $_SERVER['PHP_SELF'] ?>",
                 type: 'POST',
                 success: function(){
-                    $(tr).closest('tr').remove();
+                    $(tr).closest('tr').find('td:nth-child(3)').html("Không hoạt động");
                 }
             });
         }

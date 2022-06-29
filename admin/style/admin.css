@@ -7,6 +7,10 @@
     transition: 1s;
 }
 
+body {
+    background-color: #ebeef6;
+}
+
 header {
     display: flex;
     background-color: #31363b;

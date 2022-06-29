@@ -74,6 +74,10 @@
                                             }
                                             mysqli_close($con);
                                         }
+                                        else {
+                                            echo '<option value="0">Không hoạt động</option>';
+                                            echo '<option value="1" selected>Đang hoạt động</option>';
+                                        }
                                     ?>
                                 </select>
                             </div>
