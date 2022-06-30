@@ -17,12 +17,33 @@
         ?>
         <div class="main">
             <div class="row mb-5">
-                <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+                <div class="col-xl-2 col-xxl-2 col-lg-6 col-sm-6">
                     <div class="card overflow-hidden">
-                        <div class="card-body bg-success pb-0 px-4 py-4">
+                        <div class="card-body pb-0 px-4 py-3">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="mb-1 text-white">
+                                    <span class="">Tổng doanh thu:</span>
+                                    <h5 class="pt-2">
+                                        <?php
+                                            $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                                            $result = mysqli_query($con, "select sum(quantity * price) 'sum' from saleorder s join product_saleorder ps on s.id = ps.saleorder_id join product p on ps.product_id = p.id");
+                                            $row = mysqli_fetch_assoc($result);
+                                            echo number_format($row['sum'], 0, '.', ',') . "đ";
+                                            mysqli_close($con);
+                                        ?>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-xxl-2 col-lg-6 col-sm-6">
+                    <div class="card overflow-hidden">
+                        <div class="card-body pb-0 px-4 py-3">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="">Sản Phẩm Đã Bán:</span>
+                                    <h5 class="pt-2">
                                         <?php
                                             $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
                                             $result = mysqli_query($con, "select sum(quantity) 'sum' from product_saleorder");
@@ -31,18 +52,18 @@
                                             mysqli_close($con);
                                         ?>
                                     </h5>
-                                    <span class="text-white">Sản Phẩm Đã Bán</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+                <div class="col-xl-2 col-xxl-2 col-lg-6 col-sm-6">
                     <div class="card overflow-hidden">
-                        <div class="card-body pb-0 px-4 py-4">
+                        <div class="card-body pb-0 px-4 py-3">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="mb-1">
+                                    <span class="">Sản Phẩm Tồn Kho</span>
+                                    <h5 class="pt-2">
                                         <?php
                                             $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
                                             $result = mysqli_query($con, "select sum(quantity) 'sum' from size_color");
@@ -51,7 +72,26 @@
                                             mysqli_close($con);
                                         ?>
                                     </h5>
-                                    <span class="">Sản Phẩm Tồn Kho</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-xxl-2 col-lg-6 col-sm-6">
+                    <div class="card overflow-hidden">
+                        <div class="card-body pb-0 px-4 py-3">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="">Khách hàng:</span>
+                                    <h5 class="pt-2">
+                                        <?php
+                                            $con = mysqli_connect("localhost", "root", "12345678", "projectphp");
+                                            $result = mysqli_query($con, "select count(*) 'sum' from user where role = 'khachHang'");
+                                            $row = mysqli_fetch_assoc($result);
+                                            echo $row['sum'];
+                                            mysqli_close($con);
+                                        ?>
+                                    </h5>
                                 </div>
                             </div>
                         </div>

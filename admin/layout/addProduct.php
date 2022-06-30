@@ -334,6 +334,10 @@
         var isColor = color.length != 0 ? true : false;
         var isPrice = price != ''  ? true : false;
         var isQuantity = quantity != '' ? true : false;
+        if (isName && isCategory && isSize && isColor && isPrice && isQuantity)
+            $('button').prop('disabled', 0);
+        else
+            $('button').prop('disabled', 1);
         $('#name').on('input', function () {
             name = $('#name').val();
             isName = name != '' ? true : false;

@@ -157,7 +157,9 @@
                                 echo '</div>';
                             }
                         }
-                        
+                        else {
+                            echo '<p style="margin-left: 30px; font-weight: 400; color: orange; font-size: 20px;">Không có sản phẩm</p>';
+                        }
                         mysqli_close($con);
                         ?>
                         
